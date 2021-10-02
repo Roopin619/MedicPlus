@@ -1,13 +1,28 @@
 import React, { Component } from "react";
-import SimpleStorageContract from "./contracts/SimpleStorage.json";
+import EHRContract from "./contracts/EHR.json";
 import getWeb3 from "./getWeb3";
+
+import Header from './components/Header';
 
 import "./App.css";
 
 class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
+  constructor(props) {
+    super(props);
+    this.state = {
+      EHRInstance: undefined,
+      account: null,
+      web3: null,
+      isOwner: false
+    }
+  };
 
   componentDidMount = async () => {
+    // FOR REFRESHING PAGE ONLY ONCE -
+    if (!window.location.hash) {
+      window.location = window.location + '#loaded';
+      window.location.reload();
+    }
     try {
       // Get network provider and web3 instance.
       const web3 = await getWeb3();
@@ -17,15 +32,26 @@ class App extends Component {
 
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = SimpleStorageContract.networks[networkId];
+      const deployedNetwork = EHRContract.networks[networkId];
       const instance = new web3.eth.Contract(
-        SimpleStorageContract.abi,
+        EHRContract.abi,
         deployedNetwork && deployedNetwork.address,
       );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance }, this.runExample);
+      this.setState({ EHRInstance: instance, web3: web3, account: accounts[1] });
+
+      // const owner = await this.state.VoterInstance.methods.getOwner().call();
+      // if (this.state.account === owner) {
+      //   this.setState({ isOwner: true });
+      // }
+
+      // let start = await this.state.VoterInstance.methods.getStart().call();
+      // let end = await this.state.VoterInstance.methods.getEnd().call();
+
+      // this.setState({ start: start, end: end });
+
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -35,36 +61,19 @@ class App extends Component {
     }
   };
 
-  runExample = async () => {
-    const { accounts, contract } = this.state;
-
-    // Stores a given value, 5 by default.
-    await contract.methods.set(5).send({ from: accounts[0] });
-
-    // Get the value from the contract to prove it worked.
-    const response = await contract.methods.get().call();
-
-    // Update state with the result.
-    this.setState({ storageValue: response });
-  };
-
   render() {
     if (!this.state.web3) {
-      return <div>Loading Web3, accounts, and contract...</div>;
+      return (
+        <div>
+          <h1>
+            Loading Web3, accounts, and contract..
+          </h1>
+        </div>
+      );
     }
     return (
       <div className="App">
-        <h1>Good to Go!</h1>
-        <p>Your Truffle Box is installed and ready.</p>
-        <h2>Smart Contract Example</h2>
-        <p>
-          If your contracts compiled and migrated successfully, below will show
-          a stored value of 5 (by default).
-        </p>
-        <p>
-          Try changing the value stored on <strong>line 42</strong> of App.js.
-        </p>
-        <div>The stored value is: {this.state.storageValue}</div>
+        <Header />
       </div>
     );
   }

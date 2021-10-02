@@ -1,0 +1,104 @@
+.header-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titleName {
+  width: 20%;
+}
+
+.options-wrapper {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brandName {
+  font-size: 25px;
+  letter-spacing: 2px;
+  color: rgb(100, 160, 255);
+}
+
+.brandName:hover {
+  cursor: pointer;
+}
+
+.functions-1 {
+  width: 30%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 16px;
+  margin-right: 5%;
+  color: rgb(103, 103, 112);
+}
+.functions-2 {
+  width: 30%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 16px;
+  margin-right: 5%;
+  color: rgb(103, 103, 112);
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-btn {
+  padding: 20px 40px 20px 20px;
+}
+
+.dropdown-btn:hover {
+  cursor: pointer;
+}
+
+.dropdown .dropdown-content {
+  text-align: left;
+  border-radius: 5px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding: 10px;
+  background: #fff;
+  box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
+  color: #333;
+  width: 200px;
+}
+
+.dropdown .dropdown-content .dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown .dropdown-content .dropdown-item:hover {
+  background: #f4f4f4;
+}
+
+.nav-btn {
+  padding: 20px;
+}
+
+.nav-btn:hover {
+  cursor: pointer;
+  color: #2e9dff;
+}
+
+.navLink {
+  padding: 20px;
+  text-decoration: none;
+  color: rgb(103, 103, 112);
+}
+
+.navLink:hover {
+  cursor: pointer;
+  color: #2e9dff;
+}
