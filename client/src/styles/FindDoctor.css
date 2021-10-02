@@ -1,0 +1,84 @@
+.findDoctor-container {
+  width: 100%;
+  margin: 3rem;
+}
+
+.findDoctor-backButton {
+  background-color: #fff;
+  font-size: 0.8rem;
+  border-radius: 22px;
+  border: 1px solid rgb(100, 160, 255);
+  letter-spacing: 1px;
+  outline: none;
+  color: rgb(100, 160, 255);
+  padding: 8px 25px;
+}
+
+.findDoctor-backButton:hover {
+  background-color: #fff;
+  border: 1px solid rgb(100, 160, 255);
+  transform: scale(1.01);
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+    0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+}
+
+.findDoctor-content {
+  width: 60%;
+  margin: auto;
+  text-align: center;
+  padding: 1rem 0.8rem;
+}
+
+.findDoctor-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin: 2rem 0;
+}
+
+.findDoctor-searchInput {
+  width: 95%;
+  margin: auto;
+  margin-bottom: 2rem;
+}
+.findDoctor-searchInput input {
+  padding: 20px 25px;
+  font-size: 1.2rem;
+  color: #555;
+  width: 80%;
+  margin: auto;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid rgb(100, 160, 255);
+}
+
+.findDoctor-buttonDiv {
+  margin-top: 1rem;
+  width: 95%;
+  margin: auto;
+}
+
+.findDoctor-button {
+  background-color: #fff;
+  color: rgb(100, 160, 255);
+  border: 1px solid rgb(100, 160, 255);
+  border-radius: 22px;
+  width: 20%;
+  padding: 8px 0px;
+  font-size: 1em;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
+.findDoctor-button:hover {
+  background-color: #fff;
+  border: 1px solid rgb(100, 160, 255);
+  transform: scale(1.01);
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+    0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+}

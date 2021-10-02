@@ -7,6 +7,7 @@
   font-size: 16px;
   margin-right: 5%;
   color: rgb(103, 103, 112);
+  background-color: #ededed;
 }
 .admin-header .dropdown .dropdown-content {
   text-align: left;

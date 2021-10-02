@@ -1,0 +1,102 @@
+.viewDoctorInfo-container {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.viewDoctorInfo-backButtonDiv {
+  width: 90%;
+  text-align: right;
+  margin: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.viewDoctorInfo-backButton {
+  background-color: #fff;
+  color: rgb(100, 160, 255);
+  border: 1px solid rgb(100, 160, 255);
+  border-radius: 22px;
+  width: 8%;
+  padding: 8px 0px;
+  font-size: 0.8rem;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
+.viewDoctorInfo-backButton:hover {
+  background-color: #fff;
+  border: 1px solid rgb(100, 160, 255);
+  transform: scale(1.01);
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+    0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+}
+
+.viewDoctorInfo-title {
+  margin: 0.8rem 0 2rem 0;
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+.viewDoctorInfo-form-container {
+  width: 50%;
+  margin: auto;
+  margin-top: 1rem;
+  padding: 1rem 0.8rem;
+  border-radius: 10px;
+  /* box-shadow: 0px 10px 30px #555; */
+  display: flex;
+  flex-direction: column;
+}
+
+.viewDoctorInfo-form-row-wise {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 15px auto;
+}
+
+.viewDoctorInfo-form-row-wise input {
+  width: 40%;
+  padding: 12px 15px;
+  margin: 0;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid rgb(175, 175, 175);
+
+  /* border-radius: 22px; */
+}
+
+.viewDoctorInfo-buttonDiv {
+  width: 100%;
+  text-align: center;
+  margin: 1rem auto;
+}
+
+.viewDoctorInfo-button {
+  background-color: rgb(100, 160, 255);
+  color: #fff;
+  border: 1px solid rgb(100, 160, 255);
+  border-radius: 22px;
+  width: 90%;
+  padding: 8px 0px;
+  font-size: 1em;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
+.viewDoctorInfo-button:hover {
+  background-color: rgb(100, 160, 255);
+  transform: scale(1.01);
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+    0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+}
