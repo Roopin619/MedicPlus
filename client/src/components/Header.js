@@ -13,18 +13,14 @@ const Header = () => {
   };
 
   const handleOpenDoctor = () => {
-    if (isActive === 'doctor')
-      setIsActive('');
-    else
-      setIsActive('doctor');
-  }
+    if (isActive === 'doctor') setIsActive('');
+    else setIsActive('doctor');
+  };
 
   const handleOpenPatient = () => {
-    if (isActive === 'patient')
-      setIsActive('');
-    else
-      setIsActive('patient');
-  }
+    if (isActive === 'patient') setIsActive('');
+    else setIsActive('patient');
+  };
 
   return (
     <div className='header-container'>
@@ -34,39 +30,44 @@ const Header = () => {
           MedicPlus
         </h2>
       </div>
-      <div className="options-wrapper">
+      <div className='options-wrapper'>
         <div className='functions-1'>
           <div className='dropdown'>
-            <div
-              className='dropdown-btn'
-              onClick={handleOpenDoctor}
-            >
+            <div className='dropdown-btn' onClick={handleOpenDoctor}>
               Doctor
             </div>
             {isActive === 'doctor' && (
               <div className='dropdown-content'>
-                <div className='dropdown-item'>Add Patient Record</div>
+                <div
+                  className='dropdown-item'
+                  onClick={() => history.push('/addMedicalRecord')}
+                >
+                  Add Patient Record
+                </div>
                 <div className='dropdown-item'>Update Patient Record</div>
                 <div className='dropdown-item'>Delete Patient Record</div>
                 <div className='dropdown-item'>Edit Info</div>
-                <div className='dropdown-item' onClick={() => history.push('/findDoctor')}>
+                <div
+                  className='dropdown-item'
+                  onClick={() => history.push('/findDoctor')}
+                >
                   View Info
                 </div>
               </div>
             )}
           </div>
           <div className='dropdown'>
-            <div
-              className='dropdown-btn'
-              onClick={handleOpenPatient}
-            >
+            <div className='dropdown-btn' onClick={handleOpenPatient}>
               Patient
             </div>
             {isActive === 'patient' && (
               <div className='dropdown-content'>
                 <div className='dropdown-item'>View Medical Record</div>
                 <div className='dropdown-item'>Edit Info</div>
-                <div className='dropdown-item' onClick={() => history.push('/findPatient')}>
+                <div
+                  className='dropdown-item'
+                  onClick={() => history.push('/findPatient')}
+                >
                   View Info
                 </div>
               </div>
@@ -77,9 +78,7 @@ const Header = () => {
           <div className='dropdown-btn' onClick={() => history.push('/admin')}>
             Admin
           </div>
-          <div className='dropdown-btn'>
-            About
-          </div>
+          <div className='dropdown-btn'>About</div>
         </div>
       </div>
     </div>
