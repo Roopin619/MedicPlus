@@ -4,7 +4,6 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #ededed;
 }
 
 .titleName {
@@ -22,7 +21,7 @@
 .brandName {
   font-size: 25px;
   letter-spacing: 2px;
-  color: rgb(100, 160, 255);
+  color: #00a19d;
 }
 
 .brandName:hover {

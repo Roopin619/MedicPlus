@@ -116,9 +116,8 @@ contract EHR {
         patient.add(publicKey);
     }
 
-    function isPatient(address publicKey) public view returns (string memory) {
-        require(patient.has(publicKey), "Only for Patients");
-        return "1";
+    function isPatient(address publicKey) public view returns (bool) {
+        return patient.has(publicKey);
     }
 
     function addPatient(address publicKey) external onlyAdmin {
@@ -142,9 +141,9 @@ contract EHR {
     //     return msg.sender;
     // }
 
-    function getPatientId() public view returns (address) {
-        return patient_id;
-    }
+    // function getPatientId() public view returns (address) {
+    //     return patient_id;
+    // }
 
     function getPatientInfoByAddress(address publicKey)
         public

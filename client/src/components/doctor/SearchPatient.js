@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import EHRContract from '../../contracts/EHR.json';
 import getWeb3 from '../../getWeb3';
 import ipfs from '../../ipfs';
-import AddMedicalRecord from '../doctor/AddMedicalRecord';
+// import AddMedicalRecord from '../doctor/AddMedicalRecord';
 
 import '../../styles/FindDoctor.css';
 

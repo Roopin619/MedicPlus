@@ -2,7 +2,6 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import EHRContract from '../../contracts/EHR.json';
 import getWeb3 from '../../getWeb3';
-import ipfs from '../../ipfs';
 import MedicalRecordForm from './MedicalRecordForm';
 
 import '../../styles/FindDoctor.css';
@@ -19,8 +18,7 @@ const AddMedicalRecord = () => {
   const [patientId, setPatientId] = useState('');
   const [blockchainData, setBlockchainData] = useState(initialBlockchainData);
   const [boolVal, setBoolVal] = useState(false);
-  const [viewForm, setViewForm] = useState(true);
-  // const [ViewPatientRecords, setPatientDetails] = useState({});
+  const [viewForm, setViewForm] = useState(false);
 
   useEffect(() => {
     // FOR REFRESHING PAGE ONLY ONCE -
@@ -70,18 +68,17 @@ const AddMedicalRecord = () => {
 
   const handleSearch = async () => {
     await blockchainData.EHRInstance.methods
-      .getPatientInfoByAddress(patientId)
+      .isPatient(patientId)
       .call()
       .then((value) => {
-        ipfs.cat(value).then((data) => {
-          const val = JSON.parse(data);
-          // setPatientDetails(val);
-          console.log(val);
-        });
-        setViewForm(true);
+        if (value) {
+          setViewForm(true);
+        } else {
+          alert('Patient not found!')
+        }
       })
       .catch((err) => {
-        alert('Error in finding doctor information');
+        alert('Error in finding the patient');
       });
   };
 
@@ -122,7 +119,7 @@ const AddMedicalRecord = () => {
           </div>
         </div>
       ) : (
-        <MedicalRecordForm />
+        <MedicalRecordForm blockchainData={blockchainData} patientId={patientId} />
       )}
     </Fragment>
   );

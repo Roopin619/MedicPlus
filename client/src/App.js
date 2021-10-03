@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import EHRContract from "./contracts/EHR.json";
 import getWeb3 from "./getWeb3";
+import doctorImage from './images/doctor.png';
 
 import Header from './components/Header';
 
@@ -74,6 +75,14 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
+        <div className="main">
+          <div className="left-container">
+            <h1 className="heading-text">Healthcare made secured using Blockchain</h1>
+          </div>
+          <div className="right-container">
+            <img src={doctorImage} alt="doctor-img" className="doctor-img" />
+          </div>
+        </div>
       </div>
     );
   }
