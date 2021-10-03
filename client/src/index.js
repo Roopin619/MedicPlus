@@ -5,6 +5,8 @@ import App from './App';
 import Admin from './components/admin/Admin';
 import AddDoctor from './components/admin/AddDoctor';
 import FindDoctor from './components/doctor/FindDoctor';
+import AddPatient from './components/admin/AddPatient';
+import FindPatient from './components/patient/FindPatient';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import history from './history';
@@ -18,6 +20,8 @@ ReactDOM.render(
       <Route exact path='/addDoctor' component={AddDoctor} />
       <Route exact path='/findDoctor' component={FindDoctor} />
       <Route exact path='/doctorInfo' component={ViewDoctorInfo} />
+      <Route exact path='/addPatient' component={AddPatient} />
+      <Route exact path='/findPatient' component={FindPatient} />
     </Switch>
   </Router>,
   document.getElementById('root')

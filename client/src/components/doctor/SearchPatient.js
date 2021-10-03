@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import EHRContract from '../../contracts/EHR.json';
 import getWeb3 from '../../getWeb3';
 import ipfs from '../../ipfs';
-import ViewDoctorInfo from '../doctor/ViewDoctorInfo';
+import AddMedicalRecord from '../doctor/AddMedicalRecord';
 
 import '../../styles/FindDoctor.css';
 
@@ -14,13 +14,13 @@ const initialBlockchainData = {
   isAdmin: false,
 };
 
-const FindDoctor = () => {
+const SearchPatient = () => {
   const history = useHistory();
-  const [doctorId, setDoctorId] = useState('');
+  const [patientId, setPatientId] = useState('');
   const [blockchainData, setBlockchainData] = useState(initialBlockchainData);
   const [boolVal, setBoolVal] = useState(false);
-  const [viewInfo, setViewInfo] = useState(false);
-  const [doctorDetails, setDoctorDetails] = useState({});
+  const [viewForm, setViewForm] = useState(false);
+  const [, setPatientDetails] = useState({});
 
   useEffect(() => {
     // FOR REFRESHING PAGE ONLY ONCE -
@@ -70,12 +70,12 @@ const FindDoctor = () => {
 
   const handleSearch = async () => {
     await blockchainData.EHRInstance.methods
-      .getDoctorInfoByAddress(doctorId)
+      .getPatientInfoByAddress(patientId)
       .call()
       .then((value) => {
         ipfs.cat(value).then((data) => {
           const val = JSON.parse(data);
-          setDoctorDetails(val);
+          setPatientDetails(val);
         })
         setViewInfo(true);
       })
@@ -95,13 +95,13 @@ const FindDoctor = () => {
             Back
           </button>
           <div className='findDoctor-content'>
-            <h1 className='findDoctor-title'>Search Doctor Information</h1>
+            <h1 className='findDoctor-title'>Search Patient Information</h1>
             <div className='findDoctor-searchInput'>
               <input
                 type='text'
-                placeholder='Enter the Account id of the Doctor eg. (0x7aF32124e1Df4c17000Df10.....)'
-                value={doctorId}
-                onChange={(e) => setDoctorId(e.target.value)}
+                placeholder='Enter the Account id of the Patient eg. (0x7aF32124e1Df4c17000Df10.....)'
+                value={patientId}
+                onChange={(e) => setPatientId(e.target.value)}
               />
             </div>
             <div className='findDoctor-buttonDiv'>
@@ -110,10 +110,10 @@ const FindDoctor = () => {
               </button>
             </div>
           </div>
-        </div>) : (<ViewDoctorInfo data={doctorDetails} />)
+        </div>) : (<ViewPatientInfo data={patientDetails} />)
       }
     </Fragment>
   );
 };
 
-export default FindDoctor;
+export default SearchPatient;

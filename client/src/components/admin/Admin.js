@@ -93,12 +93,14 @@ const Admin = () => {
               <div className='dropdown-item' onClick={() => history.push('/addDoctor')}>
                 Add Doctor
               </div>
-              <div className='dropdown-item'>Add Patient</div>
+              <div className='dropdown-item' onClick={() => history.push('/addPatient')}>
+                Add Patient
+              </div>
               <div className='dropdown-item'>Delete User</div>
             </div>
           )}
         </div>
-        <div className='dropdown-btn'>
+        <div className='dropdown-btn' onClick={() => history.push('/')}>
           Logout
         </div>
       </div>

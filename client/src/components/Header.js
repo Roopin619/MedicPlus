@@ -66,7 +66,9 @@ const Header = () => {
               <div className='dropdown-content'>
                 <div className='dropdown-item'>View Medical Record</div>
                 <div className='dropdown-item'>Edit Info</div>
-                <div className='dropdown-item'>View Info</div>
+                <div className='dropdown-item' onClick={() => history.push('/findPatient')}>
+                  View Info
+                </div>
               </div>
             )}
           </div>

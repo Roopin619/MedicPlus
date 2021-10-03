@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import '../../styles/ViewDoctorInfo.css';
 
-const ViewDoctorInfo = (props) => {
+const ViewPatientInfo = (props) => {
   const { data } = props;
   const history = useHistory();
   return (
@@ -17,7 +17,7 @@ const ViewDoctorInfo = (props) => {
         </button>
       </div>
       <div className='viewDoctorInfo-form-container'>
-        <h1 className='viewDoctorInfo-title'>Doctor's Information</h1>
+        <h1 className='viewDoctorInfo-title'>Patient's Information</h1>
         <div className='viewDoctorInfo-form-row-wise'>
           <input
             type='text'
@@ -43,14 +43,21 @@ const ViewDoctorInfo = (props) => {
             disabled
           />
           <input
+            type='text'
+            name='gender'
+            placeholder='Gender'
+            value={data.gender}
+            disabled
+          />
+        </div>
+        <div className='viewDoctorInfo-form-row-wise'>
+          <input
             type='email'
             name='email'
             placeholder='Email'
             value={data.email}
             disabled
           />
-        </div>
-        <div className='viewDoctorInfo-form-row-wise'>
           <input
             type='tel'
             name='mobileNo'
@@ -58,34 +65,11 @@ const ViewDoctorInfo = (props) => {
             value={data.mobileNo}
             disabled
           />
-          <input
-            type='text'
-            name='speciality'
-            placeholder='Speciality'
-            value={data.speciality}
-            disabled
-          />
         </div>
 
-        <div className='viewDoctorInfo-form-row-wise'>
-          <input
-            type='text'
-            name='city'
-            placeholder='City'
-            value={data.city}
-            disabled
-          />
-          <input
-            type='text'
-            name='state'
-            placeholder='State'
-            value={data.state}
-            disabled
-          />
-        </div>
       </div>
     </div>
   );
 };
 
-export default ViewDoctorInfo;
+export default ViewPatientInfo;
