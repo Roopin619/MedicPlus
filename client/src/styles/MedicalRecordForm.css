@@ -89,6 +89,7 @@
   align-items: center;
   padding: 5px;
   border-bottom: 1px solid rgb(177, 176, 176);
+  width: 100%;
 }
 
 .medications-header p {
@@ -99,10 +100,151 @@
   margin: 0;
 }
 
+.medications-column1 {
+  width: 3%;
+  text-align: left;
+}
+
+.medications-column2 {
+  width: 16%;
+  text-align: center;
+}
+
+.medications-input-row {
+  margin: 10px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.medications-input-fields {
+  width: 14%;
+  padding: 5px 5px;
+  border: 1px solid rgb(175, 175, 175);
+  border-radius: 8px;
+  outline: none;
+}
+
+.medications-addBtn {
+  width: 10%;
+  padding: 5px 5px;
+  border: 1px solid rgb(100, 160, 255);
+  background-color: rgb(100, 160, 255);
+  color: #fff;
+  border-radius: 6px;
+  outline: none;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  cursor: pointer;
+}
+
+.medications-deleteBtn {
+  width: 10%;
+  padding: 5px 5px;
+  border: 1px solid rgb(100, 160, 255);
+  background-color: #fff;
+  color: rgb(100, 160, 255);
+  border-radius: 6px;
+  outline: none;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  cursor: pointer;
+}
+
+.clinicalTest-section {
+  width: 50%;
+  margin-top: 1.2rem;
+}
+
+.clinicalTest-header {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 5px;
+  border-bottom: 1px solid rgb(177, 176, 176);
+  width: 100%;
+}
+
+.clinicalTest-header p {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: rgb(148, 144, 144);
+  margin: 0;
+}
+
+.clinicalTest-column1 {
+  width: 3%;
+  text-align: left;
+}
+
+.clinicalTest-column2 {
+  width: 45%;
+  text-align: center;
+}
+
+.clinicalTest-input-row {
+  margin: 10px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 50%;
+}
+
+.clinicalTest-input-fields {
+  width: 45%;
+  padding: 5px 5px;
+  border: 1px solid rgb(175, 175, 175);
+  border-radius: 8px;
+  outline: none;
+}
+
+.clinicalTest-addBtn {
+  width: 25%;
+  padding: 5px 5px;
+  border: 1px solid rgb(100, 160, 255);
+  background-color: rgb(100, 160, 255);
+  color: #fff;
+  border-radius: 6px;
+  outline: none;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  cursor: pointer;
+}
+
+.clinicalTest-deleteBtn {
+  width: 25%;
+  padding: 5px 5px;
+  border: 1px solid rgb(100, 160, 255);
+  background-color: #fff;
+  color: rgb(100, 160, 255);
+  border-radius: 6px;
+  outline: none;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  cursor: pointer;
+}
+
 .medicalRecord-buttonDiv {
   width: 100%;
-  text-align: center;
-  margin: 1rem auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 2rem;
 }
 
 .medicalRecord-button {
@@ -110,7 +252,7 @@
   color: #fff;
   border: 1px solid rgb(100, 160, 255);
   border-radius: 22px;
-  width: 90%;
+  width: 35%;
   padding: 8px 0px;
   font-size: 1em;
   font-weight: lighter;
@@ -128,9 +270,27 @@
     0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
 }
 
-.medications-input-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+.medicalRecord-button-cancel {
+  background-color: #fff;
+  color: rgb(100, 160, 255);
+  border: 1px solid rgb(100, 160, 255);
+  border-radius: 22px;
+  width: 35%;
+  padding: 8px 0px;
+  font-size: 1em;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
+.medicalRecord-button-cancel:hover {
+  background-color: #fff;
+  border: 1px solid rgb(100, 160, 255);
+  color: rgb(100, 160, 255);
+  transform: scale(1.01);
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+    0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
 }

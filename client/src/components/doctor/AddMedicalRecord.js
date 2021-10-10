@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import EHRContract from '../../contracts/EHR.json';
 import getWeb3 from '../../getWeb3';
 import MedicalRecordForm from './MedicalRecordForm';
+import swal from 'sweetalert';
 
 import '../../styles/FindDoctor.css';
 
@@ -26,7 +27,7 @@ const AddMedicalRecord = () => {
       window.location = window.location + '#loaded';
       window.location.reload();
     }
-    const loadBlockchain = async () => {
+    const checkDoctor = async () => {
       try {
         // Get network provider and web3 instance.
         const web3 = await getWeb3();
@@ -45,12 +46,28 @@ const AddMedicalRecord = () => {
         // Set web3, accounts, and contract to the state, and then proceed with an
         // example of interacting with the contract's methods.
 
-        setBlockchainData({
-          ...blockchainData,
-          EHRInstance: instance,
-          web3: web3,
-          account: accounts[0],
-        });
+        const isDoctor = await instance.methods.isDoctor(accounts[0]).call();
+
+        if (isDoctor) {
+          setBlockchainData({
+            ...blockchainData,
+            EHRInstance: instance,
+            web3: web3,
+            account: accounts[0],
+          });
+        } else {
+          swal({
+            title: 'Access Deneid',
+            text: 'Only Doctor have acess to this page',
+            icon: 'error',
+            button: {
+              text: 'go back',
+              value: 'back',
+            },
+          }).then((value) => {
+            history.push('/');
+          });
+        }
       } catch (error) {
         // Catch any errors for any of the above operations.
         alert(
@@ -61,10 +78,10 @@ const AddMedicalRecord = () => {
     };
 
     if (!boolVal) {
-      loadBlockchain();
+      checkDoctor();
       setBoolVal(true);
     }
-  }, [blockchainData, boolVal]);
+  }, [blockchainData, boolVal, history]);
 
   const handleSearch = async () => {
     await blockchainData.EHRInstance.methods
@@ -74,7 +91,7 @@ const AddMedicalRecord = () => {
         if (value) {
           setViewForm(true);
         } else {
-          alert('Patient not found!')
+          alert('Patient not found!');
         }
       })
       .catch((err) => {
@@ -119,7 +136,12 @@ const AddMedicalRecord = () => {
           </div>
         </div>
       ) : (
-        <MedicalRecordForm blockchainData={blockchainData} patientId={patientId} />
+        <MedicalRecordForm
+          blockchainData={blockchainData}
+          patientId={patientId}
+          // history={history}
+          setViewForm={setViewForm}
+        />
       )}
     </Fragment>
   );

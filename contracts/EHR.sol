@@ -94,9 +94,13 @@ contract EHR {
         return (Doctors[publicKey].docHash);
     }
 
-    function isDoctor(address publicKey) public view returns (string memory) {
-        require(doctor.has(publicKey), "Only for Doctors");
-        return "1";
+    // function isDoctor(address publicKey) public view returns (string memory) {
+    //     require(doctor.has(publicKey), "Only for Doctors");
+    //     return "1";
+    // }
+
+    function isDoctor(address publicKey) public view returns (bool) {
+        return doctor.has(publicKey);
     }
 
     function getDoctorsCount() public view returns (uint256) {
