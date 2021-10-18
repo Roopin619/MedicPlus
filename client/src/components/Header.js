@@ -62,7 +62,12 @@ const Header = () => {
             </div>
             {isActive === 'patient' && (
               <div className='dropdown-content'>
-                <div className='dropdown-item'>View Medical Record</div>
+                <div
+                  className='dropdown-item'
+                  onClick={() => history.push('/viewMedicalRecord')}
+                >
+                  View Medical Record
+                </div>
                 <div className='dropdown-item'>Edit Info</div>
                 <div
                   className='dropdown-item'
@@ -81,7 +86,7 @@ const Header = () => {
           <div className='dropdown-btn'>About</div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

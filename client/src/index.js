@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import history from './history';
 import ViewDoctorInfo from './components/doctor/ViewDoctorInfo';
 import AddMedicalRecord from './components/doctor/AddMedicalRecord';
+import ViewMedicalRecord from './components/patient/ViewMedicalRecord';
 
 ReactDOM.render(
   <Router history={history}>
@@ -24,6 +25,7 @@ ReactDOM.render(
       <Route exact path='/addPatient' component={AddPatient} />
       <Route exact path='/findPatient' component={FindPatient} />
       <Route exact path='/addMedicalRecord' component={AddMedicalRecord} />
+      <Route exact path='/viewMedicalRecord' component={ViewMedicalRecord} />
     </Switch>
   </Router>,
   document.getElementById('root')
