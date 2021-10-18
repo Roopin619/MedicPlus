@@ -77,10 +77,19 @@ const MedicalRecordForm = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let newMedicationList = inputList.filter(
+      (i) =>
+        i.medicineName !== '' ||
+        i.dosage !== '' ||
+        i.frequency ||
+        i.days !== '' ||
+        i.remarks !== ''
+    );
+    let newClinicalList = clinicalTestList.filter((c) => c.clinicalTest !== '');
     const prescription = {
       ...medicalRecord,
-      medications: inputList,
-      clinicalTests: clinicalTestList,
+      medications: newMedicationList,
+      clinicalTests: newClinicalList,
     };
 
     // console.log(prescription);
