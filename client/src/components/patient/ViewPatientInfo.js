@@ -66,7 +66,6 @@ const ViewPatientInfo = (props) => {
             disabled
           />
         </div>
-
       </div>
     </div>
   );

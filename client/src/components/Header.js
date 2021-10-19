@@ -44,9 +44,14 @@ const Header = () => {
                 >
                   Add Patient Record
                 </div>
-                <div className='dropdown-item'>Update Patient Record</div>
-                <div className='dropdown-item'>Delete Patient Record</div>
-                <div className='dropdown-item'>Edit Info</div>
+                {/**<div className='dropdown-item'>Update Patient Record</div>
+                <div className='dropdown-item'>Delete Patient Record</div> */}
+                <div
+                  className='dropdown-item'
+                  onClick={() => history.push('/editDoctorInfo')}
+                >
+                  Edit Info
+                </div>
                 <div
                   className='dropdown-item'
                   onClick={() => history.push('/findDoctor')}
@@ -68,7 +73,12 @@ const Header = () => {
                 >
                   View Medical Record
                 </div>
-                <div className='dropdown-item'>Edit Info</div>
+                <div
+                  className='dropdown-item'
+                  onClick={() => history.push('/editPatientInfo')}
+                >
+                  Edit Info
+                </div>
                 <div
                   className='dropdown-item'
                   onClick={() => history.push('/findPatient')}
@@ -86,7 +96,7 @@ const Header = () => {
           <div className='dropdown-btn'>About</div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

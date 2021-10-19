@@ -13,6 +13,8 @@ import history from './history';
 import ViewDoctorInfo from './components/doctor/ViewDoctorInfo';
 import AddMedicalRecord from './components/doctor/AddMedicalRecord';
 import ViewMedicalRecord from './components/patient/ViewMedicalRecord';
+import EditPatientInfo from './components/patient/EditPatientInfo';
+import EditDoctorInfo from './components/doctor/EditDoctorInfo';
 
 ReactDOM.render(
   <Router history={history}>
@@ -26,6 +28,8 @@ ReactDOM.render(
       <Route exact path='/findPatient' component={FindPatient} />
       <Route exact path='/addMedicalRecord' component={AddMedicalRecord} />
       <Route exact path='/viewMedicalRecord' component={ViewMedicalRecord} />
+      <Route exact path='/editPatientInfo' component={EditPatientInfo} />
+      <Route exact path='/editDoctorInfo' component={EditDoctorInfo} />
     </Switch>
   </Router>,
   document.getElementById('root')

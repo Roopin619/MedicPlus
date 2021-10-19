@@ -132,6 +132,14 @@ contract EHR {
         patient.remove(publicKey);
     }
 
+    function updatePatientInfo(address publicKey, string memory _ptInfo_hash)
+        public
+    {
+        Patient storage patInfo = Patients[msg.sender];
+        patInfo.patHash = _ptInfo_hash;
+        PatIds.push(publicKey);
+    }
+
     // function addRecord(address _patId) external onlyDoctor {
     //     require(patient.has(_patId) == true, "is not a Patient");
     //     patient_id = _patId;

@@ -76,18 +76,18 @@ const FindPatient = () => {
         ipfs.cat(value).then((data) => {
           const val = JSON.parse(data);
           setPatientDetails(val);
-        })
+        });
         setViewInfo(true);
       })
-      .catch(err => {
-        alert('Error in finding doctor information');
+      .catch((err) => {
+        alert('Error in finding patient information');
       });
   };
 
   return (
     <Fragment>
-      {
-        !viewInfo ? (<div className='findDoctor-container'>
+      {!viewInfo ? (
+        <div className='findDoctor-container'>
           <button
             className='findDoctor-backButton'
             onClick={() => history.push('/')}
@@ -110,8 +110,10 @@ const FindPatient = () => {
               </button>
             </div>
           </div>
-        </div>) : (<ViewPatientInfo data={patientDetails} />)
-      }
+        </div>
+      ) : (
+        <ViewPatientInfo data={patientDetails} />
+      )}
     </Fragment>
   );
 };
