@@ -10,7 +10,6 @@ const initialData = {
   EHRInstance: undefined,
   account: null,
   web3: null,
-  isAdmin: false,
 };
 
 const Admin = () => {
@@ -44,17 +43,15 @@ const Admin = () => {
         // Set web3, accounts, and contract to the state, and then proceed with an
         // example of interacting with the contract's methods.
 
-        setBlockchainData({
-          ...blockchainData,
-          EHRInstance: instance,
-          web3: web3,
-          account: accounts[0],
-        });
-
         const adminId = await instance.methods.getAdmin().call();
 
         if (accounts[0] === adminId) {
-          setBlockchainData({ ...blockchainData, isAdmin: true });
+          setBlockchainData({
+            ...blockchainData,
+            EHRInstance: instance,
+            web3: web3,
+            account: accounts[0],
+          });
         } else {
           swal({
             title: 'Access Deneid',
@@ -104,7 +101,12 @@ const Admin = () => {
               >
                 Add Patient
               </div>
-              <div className='dropdown-item'>Delete User</div>
+              {/**<div
+                className='dropdown-item'
+                onClick={() => history.push('/deleteUser')}
+              >
+                Delete User
+              </div> */}
             </div>
           )}
         </div>

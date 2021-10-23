@@ -73,6 +73,7 @@ const FindPatient = () => {
       .getPatientInfoByAddress(patientId)
       .call()
       .then((value) => {
+        console.log(value);
         ipfs.cat(value).then((data) => {
           const val = JSON.parse(data);
           setPatientDetails(val);

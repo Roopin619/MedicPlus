@@ -66,9 +66,9 @@ contract EHR {
         DocIds.push(publicKey);
     }
 
-    function addDoctor(address publicKey) external onlyAdmin {
-        doctor.add(publicKey);
-    }
+    // function addDoctor(address publicKey) external onlyAdmin {
+    //     doctor.add(publicKey);
+    // }
 
     function deleteDoctor(address publicKey) external onlyAdmin {
         doctor.remove(publicKey);
@@ -91,7 +91,11 @@ contract EHR {
         view
         returns (string memory)
     {
-        return (Doctors[publicKey].docHash);
+        if (doctor.has(publicKey)) {
+            return (Doctors[publicKey].docHash);
+        } else {
+            return "error";
+        }
     }
 
     // function isDoctor(address publicKey) public view returns (string memory) {
@@ -124,19 +128,19 @@ contract EHR {
         return patient.has(publicKey);
     }
 
-    function addPatient(address publicKey) external onlyAdmin {
-        patient.add(publicKey);
-    }
+    // function addPatient(address publicKey) external onlyAdmin {
+    //     patient.add(publicKey);
+    // }
 
     function deletePatient(address publicKey) external onlyAdmin {
         patient.remove(publicKey);
     }
 
-    function updatePatientInfo(address publicKey, string memory _ptInfo_hash)
+    function updatePatientInfo(address publicKey, string memory _patInfo_hash)
         public
     {
         Patient storage patInfo = Patients[msg.sender];
-        patInfo.patHash = _ptInfo_hash;
+        patInfo.patHash = _patInfo_hash;
         PatIds.push(publicKey);
     }
 
@@ -162,7 +166,11 @@ contract EHR {
         view
         returns (string memory)
     {
-        return (Patients[publicKey].patHash);
+        if (patient.has(publicKey)) {
+            return (Patients[publicKey].patHash);
+        } else {
+            return "error";
+        }
     }
 
     /* MEDICAL RECORDS */

@@ -64,7 +64,6 @@ const EditPatientInfo = () => {
         const isPatient = await instance.methods.isPatient(accounts[0]).call();
 
         if (isPatient) {
-          setBlockchainData({ ...blockchainData, isPatient: true });
           await instance.methods
             .getPatientInfoByAddress(accounts[0])
             .call()
@@ -117,26 +116,27 @@ const EditPatientInfo = () => {
     e.preventDefault();
     const infoStr = JSON.stringify(changes);
     console.log(infoStr);
-    // await ipfs.add(infoStr).then(async (hash) => {
-    //   try {
-    //     await blockchainData.EHRInstance.methods
-    //       .addPatientInfo(changes.patientId, hash)
-    //       .send({ from: blockchainData.account });
-    //     swal({
-    //       title: 'Success',
-    //       text: 'Patient Registerd Successfully',
-    //       icon: 'success',
-    //       button: 'ok',
-    //     }).then(() => window.location.reload());
-    //   } catch (err) {
-    //     swal({
-    //       title: 'Error',
-    //       text: '1.Only Admin can Add Users\n2.This id already has a role',
-    //       icon: 'error',
-    //       button: 'ok',
-    //     }).then(() => window.location.reload());
-    //   }
-    // });
+    await ipfs.add(infoStr).then(async (hash) => {
+      try {
+        // console.log(blockchainData);
+        await blockchainData.EHRInstance.methods
+          .updatePatientInfo(changes.patientId, hash)
+          .send({ from: blockchainData.account });
+        swal({
+          title: 'Success',
+          text: 'Patient Details Updated Successfully',
+          icon: 'success',
+          button: 'ok',
+        }).then(() => window.location.reload());
+      } catch (err) {
+        swal({
+          title: 'Error',
+          text: 'Error in updating details',
+          icon: 'error',
+          button: 'ok',
+        }).then(() => window.location.reload());
+      }
+    });
   };
 
   return (

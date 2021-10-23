@@ -117,26 +117,26 @@ const EditDoctorInfo = () => {
     e.preventDefault();
     const infoStr = JSON.stringify(changes);
     console.log(infoStr);
-    // await ipfs.add(infoStr).then(async (hash) => {
-    //   try {
-    //     await blockchainData.EHRInstance.methods
-    //       .addDoctorInfo(changes.doctorId, hash)
-    //       .send({ from: blockchainData.account });
-    //     swal({
-    //       title: 'Success',
-    //       text: 'Doctor Registerd Successfully',
-    //       icon: 'success',
-    //       button: 'ok',
-    //     }).then(() => window.location.reload());
-    //   } catch (err) {
-    //     swal({
-    //       title: 'Error',
-    //       text: '1.Only Admin can Add Users\n2.This id already has a role',
-    //       icon: 'error',
-    //       button: 'ok',
-    //     }).then(() => window.location.reload());
-    //   }
-    // });
+    await ipfs.add(infoStr).then(async (hash) => {
+      try {
+        await blockchainData.EHRInstance.methods
+          .updateDoctorInfo(changes.doctorId, hash)
+          .send({ from: blockchainData.account });
+        swal({
+          title: 'Success',
+          text: 'Doctor Details Updated Successfully',
+          icon: 'success',
+          button: 'ok',
+        }).then(() => window.location.reload());
+      } catch (err) {
+        swal({
+          title: 'Error',
+          text: 'Error in updating details',
+          icon: 'error',
+          button: 'ok',
+        }).then(() => window.location.reload());
+      }
+    });
   };
 
   return (
