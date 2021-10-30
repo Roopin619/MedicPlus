@@ -1,0 +1,22 @@
+.mainContainer {
+  text-align: center;
+  background: url('../images/background.jpg') no-repeat center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.covid-pageTitle {
+  color: #76d5cb;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.covid-vaccinationDiv {
+  width: 60%;
+  height: 60%;
+  margin: auto;
+  margin-top: 2rem;
+  background-color: aliceblue;
+  padding: 20px;
+}

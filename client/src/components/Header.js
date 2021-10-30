@@ -90,6 +90,12 @@ const Header = () => {
           </div>
         </div>
         <div className='functions-2'>
+          <div
+            className='dropdown-btn'
+            onClick={() => history.push('/covid-info')}
+          >
+            Covid19
+          </div>
           <div className='dropdown-btn' onClick={() => history.push('/admin')}>
             Admin
           </div>
