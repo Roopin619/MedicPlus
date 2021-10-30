@@ -10288,13 +10288,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x264ff55A82A9D2379C36AD6B020dcE1c18d4e13D",
-      "transactionHash": "0xb680cdf50fa29642e2bf81166538a8f44e4f939a92cf8e906d43700ba52de171"
+      "address": "0xCFfAE0c03744d10f00E4157886E6D70ED7887f29",
+      "transactionHash": "0xd72841aa3eed7756b1a72f4d06c59324930de8c94ba1be516ab7f70ea28ace72"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-10-30T10:27:15.520Z",
-  "networkType": "ethereum",
+  "updatedAt": "2021-10-30T16:18:11.668Z",
   "devdoc": {
     "methods": {}
   },
