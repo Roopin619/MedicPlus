@@ -15,7 +15,8 @@ import AddMedicalRecord from './components/doctor/AddMedicalRecord';
 import ViewMedicalRecord from './components/patient/ViewMedicalRecord';
 import EditPatientInfo from './components/patient/EditPatientInfo';
 import EditDoctorInfo from './components/doctor/EditDoctorInfo';
-import CovidDashboard from './components/covidData/CovidDashboard';
+import CovidPage from './components/covidData/CovidPage';
+// import CovidDashboard from './components/covidData/CovidDashboard';
 
 ReactDOM.render(
   <Router history={history}>
@@ -31,7 +32,7 @@ ReactDOM.render(
       <Route exact path='/viewMedicalRecord' component={ViewMedicalRecord} />
       <Route exact path='/editPatientInfo' component={EditPatientInfo} />
       <Route exact path='/editDoctorInfo' component={EditDoctorInfo} />
-      <Route exact path='/covid-info' component={CovidDashboard} />
+      <Route exact path='/covid-info' component={CovidPage} />
     </Switch>
   </Router>,
   document.getElementById('root')
