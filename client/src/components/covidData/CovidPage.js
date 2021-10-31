@@ -15,12 +15,12 @@ import Link from "@material-ui/core/Link";
 
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
-import useLocalStorageState from "../hooks/useLocalStorageState";
-import { DataProvider } from "../context/data.context";
-import { AttributeProvider } from "../context/attribute.context";
-import { HistoricalDataProvider } from "../context/historicalData.context";
-import useStyles from "../styles/AppStyles";
-import logo from "../images/logo.png";
+import useLocalStorageState from "../../hooks/useLocalStorageState";
+import { DataProvider } from "../../context/data.context";
+import { AttributeProvider } from "../../context/attribute.context";
+import { HistoricalDataProvider } from "../../context/historicalData.context";
+import useStyles from "../../styles/AppStyles";
+import logo from "../../images/logo.png";
 
 function CovidPage() {
   const classes = useStyles();

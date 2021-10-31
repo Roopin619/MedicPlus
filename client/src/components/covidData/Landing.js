@@ -3,8 +3,8 @@ import Grid from "@material-ui/core/Grid";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import LeftLanding from "./LeftLanding";
 import RightLanding from "./RightLanding";
-import useStyles from "../styles/LandingStyles";
-import { DataContext } from "../context/data.context";
+import useStyles from "../../styles/LandingStyles";
+import { DataContext } from "../../context/data.context";
 
 function Landing() {
   const classes = useStyles();

@@ -7,9 +7,9 @@ import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
-import { HistoricalData } from "../context/historicalData.context";
-import { STATE_NAMES, colors } from "../constants";
-import useStyles from "../styles/ChartListStyles";
+import { HistoricalData } from "../../context/historicalData.context";
+import { STATE_NAMES, colors } from "../../constants";
+import useStyles from "../../styles/ChartListStyles";
 
 function ChartList() {
   const classes = useStyles();

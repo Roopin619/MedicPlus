@@ -10,9 +10,9 @@ import Fade from "@material-ui/core/Fade";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { scaleQuantize } from "d3-scale";
 
-import indiaMap from "../maps/india-map-3.json";
-import { DataContext } from "../context/data.context";
-import { AttributeContext } from "../context/attribute.context";
+import indiaMap from "../../maps/india-map-3.json";
+import { DataContext } from "../../context/data.context";
+import { AttributeContext } from "../../context/attribute.context";
 
 const MapChart = ({ setTooltipContent, locationId, setLocationId }) => {
   const data = useContext(DataContext);

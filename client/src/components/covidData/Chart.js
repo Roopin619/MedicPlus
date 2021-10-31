@@ -2,8 +2,8 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 import Typography from "@material-ui/core/Typography";
 
-import { STATE_NAMES } from "../constants";
-import useStyles from "../styles/ChartStyles";
+import { STATE_NAMES } from "../../constants";
+import useStyles from "../../styles/ChartStyles";
 
 function Chart({
   data,

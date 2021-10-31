@@ -15,8 +15,8 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Slide from "@material-ui/core/Slide";
 
-import { DataContext } from "../context/data.context";
-import { STATE_NAMES } from "../constants";
+import { DataContext } from "../../context/data.context";
+import { STATE_NAMES } from "../../constants";
 
 function createData(name, confirmed, active, recovered, deceased) {
   return { name, confirmed, active, recovered, deceased };

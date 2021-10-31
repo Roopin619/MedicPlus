@@ -5,10 +5,10 @@ import CountUp from "react-countup";
 
 import Typography from "@material-ui/core/Typography";
 
-import { DataContext } from "../context/data.context";
-import { AttributeContext } from "../context/attribute.context";
-import { STATE_NAMES } from "../constants";
-import useStyles from "../styles/MapHeaderStyles";
+import { DataContext } from "../../context/data.context";
+import { AttributeContext } from "../../context/attribute.context";
+import { STATE_NAMES } from "../../constants";
+import useStyles from "../../styles/MapHeaderStyles";
 
 function MapHeader({ locationId }) {
   const classes = useStyles();

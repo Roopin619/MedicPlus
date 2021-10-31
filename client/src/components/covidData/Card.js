@@ -5,7 +5,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { DispatchAttributeContext } from "../context/attribute.context";
+import { DispatchAttributeContext } from "../../context/attribute.context";
 
 export default function ({
   heading,
