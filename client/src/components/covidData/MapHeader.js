@@ -35,6 +35,9 @@ function MapHeader({ locationId }) {
     active: classes.blue,
     recovered: classes.green,
     deceased: classes.grey,
+    tested: classes.purple,
+    vaccinated1: classes.orange,
+    vaccinated2: classes.teal
   };
 
   return (

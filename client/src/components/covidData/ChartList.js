@@ -140,6 +140,42 @@ function ChartList() {
         title="Deceased"
         fontColor={colors.grey}
       />
+      <Chart
+        data={historicalData.data}
+        state={state}
+        duration={duration}
+        attribute="tested"
+        type={type}
+        borderColor="rgba(196, 0, 255, 1)"
+        backgroundColor="rgba(196, 0, 255, 0.5)"
+        labelText="Tests conducted in"
+        title="Tested"
+        fontColor={colors.purple}
+      />
+      <Chart
+        data={historicalData.data}
+        state={state}
+        duration={duration}
+        attribute="vaccinated1"
+        type={type}
+        borderColor="rgba(255, 130, 67, 1)"
+        backgroundColor="rgba(255, 130, 67, 0.5)"
+        labelText="1st vaccine dose taken in"
+        title="Vaccinated1"
+        fontColor={colors.orange}
+      />
+      <Chart
+        data={historicalData.data}
+        state={state}
+        duration={duration}
+        attribute="vaccinated2"
+        type={type}
+        borderColor="rgba(4, 171, 193, 1)"
+        backgroundColor="rgba(4, 171, 193, 0.5)"
+        labelText="2nd vaccine dose taken in"
+        title="Vaccinated2"
+        fontColor={colors.teal}
+      />
     </div>
   );
 }

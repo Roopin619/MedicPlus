@@ -10,7 +10,7 @@ import Slide from "@material-ui/core/Slide";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import IconButton from "@material-ui/core/IconButton";
-import GitHubIcon from "@material-ui/icons/GitHub";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import Link from "@material-ui/core/Link";
 
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
@@ -24,12 +24,9 @@ import logo from "../../images/logo.png";
 
 function CovidPage() {
   const classes = useStyles();
-  // const [darkState, setDarkState] = useState(false);
   const [darkState, setDarkState] = useLocalStorageState("darkMode", false);
   const paletteType = darkState ? "dark" : "light";
 
-  // const arcBlue = "#0B72B9";
-  // const arcOrange = "#FFBA60";
   const arcBlue = "#00acc1";
   const arcOrange = "#ffab40";
 
@@ -96,18 +93,16 @@ function CovidPage() {
                         {darkState ? <Brightness7Icon /> : <Brightness4Icon />}
                       </IconButton>
                       <Link
-                        href="https://github.com/BhavyaCodes/covid-tracker-material-ui-react"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href="/"
                         color="inherit"
                       >
                         <IconButton
-                          aria-label="Github repository link"
+                          aria-label="Back link"
                           aria-controls="menu-appbar"
                           aria-haspopup="true"
                           color="inherit"
                         >
-                          <GitHubIcon />
+                          <ArrowBackIcon />
                         </IconButton>
                       </Link>
                     </div>

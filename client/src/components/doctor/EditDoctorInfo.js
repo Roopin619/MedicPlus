@@ -106,8 +106,6 @@ const EditDoctorInfo = () => {
     }
   }, [blockchainData, boolVal, history]);
 
-  // console.log(changes);
-
   const handleChange = (e) => {
     const { name } = e.target;
     setChanges({ ...changes, [name]: e.target.value });

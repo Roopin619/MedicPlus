@@ -47,4 +47,10 @@ export const colors = {
   greenTransparent: "rgba(40, 167, 69, 0.7)",
   grey: "rgba(108, 117, 125, 1)",
   greyTransparent: "rgba(108, 117, 125, 0.7)",
+  orange: "rgba(255, 130, 67, 1)",
+  orangeTransparent: "rgba(255, 130, 67, 0.7)",
+  purple: "rgba(196, 0, 255, 1)",
+  purpleTransparent: "rgba(196, 0, 255, 0.7)",
+  teal: "rgba(4, 171, 193, 1)",
+  tealTransparent: "rgba(4, 171, 193, 0.7)",
 };

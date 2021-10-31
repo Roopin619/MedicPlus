@@ -64,6 +64,15 @@ export default function ({
     bgGray: {
       backgroundColor: `${bgColor}`,
     },
+    bgOrange: {
+      backgroundColor: `${bgColor}`,
+    },
+    bgPurple: {
+      backgroundColor: `${bgColor}`,
+    },
+    bgTeal: {
+      backgroundColor: `${bgColor}`,
+    },
   }));
 
   const classes = useStyles();
@@ -74,6 +83,9 @@ export default function ({
     active: classes.bgBlue,
     recovered: classes.bgGreen,
     deceased: classes.bgGray,
+    tested: classes.bgPurple,
+    vaccinated1: classes.bgOrange,
+    vaccinated2: classes.bgTeal
   };
 
   const handleClick = () => {

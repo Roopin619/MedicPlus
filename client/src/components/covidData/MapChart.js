@@ -5,6 +5,9 @@ import pink from "@material-ui/core/colors/pink";
 import green from "@material-ui/core/colors/green";
 import blue from "@material-ui/core/colors/blue";
 import grey from "@material-ui/core/colors/grey";
+import orange from "@material-ui/core/colors/orange";
+import purple from "@material-ui/core/colors/purple";
+import teal from "@material-ui/core/colors/teal";
 import Fade from "@material-ui/core/Fade";
 
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
@@ -22,7 +25,6 @@ const MapChart = ({ setTooltipContent, locationId, setLocationId }) => {
   }
 
   const total = data.indiaData["total"][attribute];
-  console.log(total);
 
   const stateData = _.omit(data.data, ["TT"]);
 
@@ -91,6 +93,48 @@ const MapChart = ({ setTooltipContent, locationId, setLocationId }) => {
       green[900],
     ]);
 
+    const colorScaleOrange = scaleQuantize()
+    .domain([0, getMaxValue()])
+    .range([
+      orange[50],
+      orange[100],
+      orange[200],
+      orange[300],
+      orange[400],
+      orange[500],
+      orange[700],
+      orange[800],
+      orange[900],
+    ]);
+
+    const colorScalePurple = scaleQuantize()
+    .domain([0, getMaxValue()])
+    .range([
+      purple[50],
+      purple[100],
+      purple[200],
+      purple[300],
+      purple[400],
+      purple[500],
+      purple[700],
+      purple[800],
+      purple[900],
+    ]);
+
+    const colorScaleTeal = scaleQuantize()
+    .domain([0, getMaxValue()])
+    .range([
+      teal[50],
+      teal[100],
+      teal[200],
+      teal[300],
+      teal[400],
+      teal[500],
+      teal[700],
+      teal[800],
+      teal[900],
+    ]);
+
   const colorScalegrey = scaleQuantize()
     .domain([0, getMaxValue()])
     .range([grey[200], grey[300], grey[400], grey[500], grey[700]]);
@@ -108,6 +152,15 @@ const MapChart = ({ setTooltipContent, locationId, setLocationId }) => {
       }
       case "deceased": {
         return colorScalegrey;
+      }
+      case "tested": {
+        return colorScalePurple;
+      }
+      case "vaccinated1": {
+        return colorScaleOrange;
+      }
+      case "vaccinated2": {
+        return colorScaleTeal;
       }
       default: {
         return colorScaleGreen;
@@ -132,6 +185,18 @@ const MapChart = ({ setTooltipContent, locationId, setLocationId }) => {
       normal: grey["A100"],
       hover: grey["A400"],
     },
+    tested: {
+      normal: purple["A100"],
+      hover: purple["A400"],
+    },
+    vaccinated1: {
+      normal: orange["A100"],
+      hover: orange["A400"],
+    },
+    vaccinated2: {
+      normal: teal["A100"],
+      hover: teal["A400"],
+    }
   };
 
   return (

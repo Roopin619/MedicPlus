@@ -11,7 +11,6 @@ import { colors } from "../../constants";
 function Cards() {
   const classes = useStyles();
   const data = useContext(DataContext);
-  console.log(data);
   const attribute = useContext(AttributeContext);
 
   const [cardData, setCardData] = useState({
@@ -30,6 +29,18 @@ function Cards() {
       total: "---",
       delta: "---",
     },
+    tested: {
+      total: "---",
+      delta: "---",
+    },
+    vaccinated1: {
+      total: "---",
+      delta: "---",
+    },
+    vaccinated2: {
+      total: "---",
+      delta: "---",
+    }
   });
 
   useEffect(() => {
@@ -57,6 +68,24 @@ function Cards() {
         delta: data.indiaData?.delta?.deceased
           ? "+" + data.indiaData.delta.deceased.toLocaleString("en-IN")
           : "♥",
+      },
+      tested: {
+        total: data.indiaData.total.tested.toLocaleString("en-IN"),
+        delta: data.indiaData?.delta?.tested
+          ? "+" + data.indiaData.delta.tested.toLocaleString("en-IN")
+          : "-",
+      },
+      vaccinated1: {
+        total: data.indiaData.total.vaccinated1.toLocaleString("en-IN"),
+        delta: data.indiaData?.delta?.vaccinated1
+          ? "+" + data.indiaData.delta.vaccinated1.toLocaleString("en-IN")
+          : "-",
+      },
+      vaccinated2: {
+        total: data.indiaData.total.vaccinated2.toLocaleString("en-IN"),
+        delta: data.indiaData?.delta?.vaccinated2
+          ? "+" + data.indiaData.delta.vaccinated2.toLocaleString("en-IN")
+          : "-",
       },
     });
   }, [data]);
@@ -125,6 +154,51 @@ function Cards() {
               hoverColor={"rgba(193, 193, 193, 0.2)"}
               fontColor={colors.grey}
               fontColorTransparent={colors.greyTransparent}
+            />
+          </Grid>
+        </Zoom>
+        <Zoom in={true} style={{ transitionDelay: "200ms" }}>
+          <Grid item xs={3}>
+            <Card
+              active={attribute === "tested"}
+              type="tested"
+              heading="Tested"
+              subHeading={cardData.tested.delta}
+              number={cardData.tested.total}
+              bgColor={"rgba(196, 0, 255, 0.1)"}
+              hoverColor={"rgba(196, 0, 255, 0.15)"}
+              fontColor={colors.purple}
+              fontColorTransparent={colors.purpleTransparent}
+            />
+          </Grid>
+        </Zoom>
+        <Zoom in={true} style={{ transitionDelay: "200ms" }}>
+          <Grid item xs={3}>
+            <Card
+              active={attribute === "vaccinated1"}
+              type="vaccinated1"
+              heading="Vaccinated1"
+              subHeading={cardData.vaccinated1.delta}
+              number={cardData.vaccinated1.total}
+              bgColor={"rgba(255, 130, 67, 0.1)"}
+              hoverColor={"rgba(255, 130, 67, 0.15)"}
+              fontColor={colors.orange}
+              fontColorTransparent={colors.orangeTransparent}
+            />
+          </Grid>
+        </Zoom>
+        <Zoom in={true} style={{ transitionDelay: "200ms" }}>
+          <Grid item xs={3}>
+            <Card
+              active={attribute === "vaccinated2"}
+              type="vaccinated2"
+              heading="Vaccinated2"
+              subHeading={cardData.vaccinated2.delta}
+              number={cardData.vaccinated2.total}
+              bgColor={"rgba(4, 171, 193, 0.1)"}
+              hoverColor={"rgba(4, 171, 193, 0.15)"}
+              fontColor={colors.teal}
+              fontColorTransparent={colors.tealTransparent}
             />
           </Grid>
         </Zoom>

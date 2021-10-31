@@ -12,6 +12,15 @@ const reducer = (state, action) => {
     case "deceased": {
       return "deceased";
     }
+    case "tested": {
+      return "tested";
+    }
+    case "vaccinated1": {
+      return "vaccinated1";
+    }
+    case "vaccinated2": {
+      return "vaccinated2";
+    }
     default: {
       return state;
     }
