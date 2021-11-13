@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'semantic-ui-css/semantic.min.css';
 import './index.css';
 import App from './App';
 import Admin from './components/admin/Admin';
@@ -16,7 +17,10 @@ import ViewMedicalRecord from './components/patient/ViewMedicalRecord';
 import EditPatientInfo from './components/patient/EditPatientInfo';
 import EditDoctorInfo from './components/doctor/EditDoctorInfo';
 import CovidPage from './components/covidData/CovidPage';
-// import CovidDashboard from './components/covidData/CovidDashboard';
+import OrganLanding from './components/organDonation/OrganLanding';
+import DonorSignUp from './components/organDonation/donor-signup';
+import DonorLogin from './components/organDonation/donor-login';
+import HospitalLogin from './components/organDonation/hospital-login';
 
 ReactDOM.render(
   <Router history={history}>
@@ -33,6 +37,10 @@ ReactDOM.render(
       <Route exact path='/editPatientInfo' component={EditPatientInfo} />
       <Route exact path='/editDoctorInfo' component={EditDoctorInfo} />
       <Route exact path='/covid-info' component={CovidPage} />
+      <Route exact path='/organ-donation' component={OrganLanding} />
+      <Route exact path='/organ-donation/donor-signup' component={DonorSignUp} />
+      <Route exact path='/organ-donation/donor-login' component={DonorLogin} />
+      <Route exact path='/organ-donation/hospital-login' component={HospitalLogin} />
     </Switch>
   </Router>,
   document.getElementById('root')

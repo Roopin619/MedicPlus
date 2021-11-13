@@ -44,8 +44,6 @@ const Header = () => {
                 >
                   Add Patient Record
                 </div>
-                {/**<div className='dropdown-item'>Update Patient Record</div>
-                <div className='dropdown-item'>Delete Patient Record</div> */}
                 <div
                   className='dropdown-item'
                   onClick={() => history.push('/editDoctorInfo')}
@@ -90,6 +88,12 @@ const Header = () => {
           </div>
         </div>
         <div className='functions-2'>
+          <div
+            className='dropdown-btn'
+            onClick={() => history.push('/organ-donation')}
+          >
+            Organ Donation
+          </div>
           <div
             className='dropdown-btn'
             onClick={() => history.push('/covid-info')}
