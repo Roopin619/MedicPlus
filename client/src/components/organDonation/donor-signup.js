@@ -58,7 +58,7 @@ const DonorSignUp = () => {
         // console.log()
         const networkId = await web3.eth.net.getId();
         const deployedNetwork = OrganContract.networks[networkId];
-        console.log(deployedNetwork.address);
+
         const instance = new web3.eth.Contract(
           OrganContract.abi,
           deployedNetwork && deployedNetwork.address
@@ -101,7 +101,6 @@ const DonorSignUp = () => {
       email,
       bloodgroup,
       organ,
-      donorPublicKey,
     } = formData;
     const donor = {
       fname,
@@ -115,36 +114,26 @@ const DonorSignUp = () => {
     };
 
     const infoStr = JSON.stringify(donor);
-    console.log(blockchainData.OrganInstance);
     await ipfs.add(infoStr).then(async (hash) => {
       try {
         await blockchainData.OrganInstance.methods
           .addDonor(blockchainData.account, hash, hash, organ, bloodgroup)
-          .call();
+          .send({ from: blockchainData.account });
         swal({
           title: 'Success',
           text: 'Donor Registered Successfully',
           icon: 'success',
           button: 'ok',
-        });
+        }).then(() => window.location.reload());
       } catch (err) {
-        console.log(err);
-        // swal({
-        //   title: 'Error',
-        //   text: 'Some Error Occured',
-        //   icon: 'error',
-        //   button: 'ok',
-        // });
+        swal({
+          title: 'Error',
+          text: 'Some Error Occured',
+          icon: 'error',
+          button: 'ok',
+        }).then(() => window.location.reload());
       }
     });
-
-    // axios
-    //   .post('/api/donors', donor)
-    //   .then((res) => {
-    //     console.log('Donor Added Successfully');
-    //     window.location = '/hospital-list/' + city;
-    //   })
-    //   .catch((err) => setFormData({ ...formData, errMsg: err.message }));
   };
 
   const onChange = (e) => {

@@ -14,7 +14,6 @@ import {
   Message,
 } from 'semantic-ui-react';
 import OrganHeader from './OrganHeader';
-// import OrganChain from '../ethereum/organchain';
 
 const initialState = {
   publicKey: '',
@@ -85,19 +84,23 @@ const DonorLogin = () => {
 
     setLoginState({ loading: true, errMsg: '' });
 
+    let donorProfileObj = {};
+
     const { publicKey } = loginState;
-    console.log(publicKey);
     await blockchainData.OrganInstance.methods
-      .checkDonor(publicKey)
+      .getDonor(publicKey)
       .call()
       .then((value) => {
-        console.log(value);
-        // ipfs.cat(value).then((data) => {
-        //   const val = JSON.parse(data);
-        //   console.log(val);
-        // })
-        // setViewInfo(true);
+        ipfs.cat(value[0]).then((data) => {
+          const val = JSON.parse(data);
+          donorProfileObj = { ...donorProfileObj, donorInfo: val, matchFound: value[3], recipientId: value[4] };
+          console.log(donorProfileObj)
+        })
         setLoginState({ ...loginState, loading: false });
+        history.push({
+          pathname: '/abc',
+          state: donorProfileObj
+        });
       })
       .catch((err) => {
         setLoginState({
@@ -106,14 +109,6 @@ const DonorLogin = () => {
           errMsg: 'You are not approved yet OR you are not registred!',
         });
       });
-
-    // try{
-    //     const await blockchainData.OrganInstance.methods.getDonor(publicKey).call();
-    //     window.location = `/donor/profile/${publicKey}`;
-    // }
-    // catch(err){
-    //     this.setState({ errMsg : "You are not approved yet OR you are not registred!" })
-    // }
   };
 
   const onChange = (e) => {
