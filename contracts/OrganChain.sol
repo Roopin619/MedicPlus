@@ -69,6 +69,10 @@ contract OrganChain {
         donor_arr.push(_donor_addr);
     }
 
+    function checkDonor(address _donor_addr) public view returns (bool) {
+        return (Donors[_donor_addr].exist);
+    }
+
     function getDonor(address _donor_addr)
         public
         view

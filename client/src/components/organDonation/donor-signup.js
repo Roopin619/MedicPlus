@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import OrganContract from '../../contracts/OrganChain.json';
+import getWeb3 from '../../getWeb3';
+import ipfs from '../../ipfs';
+import swal from 'sweetalert';
 import {
   Form,
   Button,
@@ -20,19 +24,85 @@ const initialState = {
   email: '',
   bloodgroup: 'A+',
   organ: 'Eyes',
+  donorPublicKey: '',
   errMsg: '',
 };
 
+const initialBlockchainData = {
+  OrganInstance: undefined,
+  account: null,
+  web3: null,
+};
+
 const DonorSignUp = () => {
+  const history = useHistory();
+  const [boolVal, setBoolVal] = useState(false);
+  const [blockchainData, setBlockchainData] = useState(initialBlockchainData);
   const [formData, setFormData] = useState(initialState);
 
-  const onSubmit = (event) => {
+  useEffect(() => {
+    // FOR REFRESHING PAGE ONLY ONCE -
+    if (!window.location.hash) {
+      window.location = window.location + '#loaded';
+      window.location.reload();
+    }
+    const loadBlockchain = async () => {
+      try {
+        // Get network provider and web3 instance.
+        const web3 = await getWeb3();
+
+        // Use web3 to get the user's accounts.
+        const accounts = await web3.eth.getAccounts();
+
+        // Get the contract instance.
+        // console.log()
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = OrganContract.networks[networkId];
+        console.log(deployedNetwork.address);
+        const instance = new web3.eth.Contract(
+          OrganContract.abi,
+          deployedNetwork && deployedNetwork.address
+        );
+        // Set web3, accounts, and contract to the state, and then proceed with an
+        // example of interacting with the contract's methods.
+
+        setBlockchainData({
+          ...blockchainData,
+          OrganInstance: instance,
+          web3: web3,
+          account: accounts[0],
+        });
+      } catch (error) {
+        // Catch any errors for any of the above operations.
+        alert(
+          `Failed to load web3, accounts, or contract. Check console for details.`
+        );
+        console.error(error);
+      }
+    };
+
+    if (!boolVal) {
+      loadBlockchain();
+      setBoolVal(true);
+    }
+  }, [blockchainData, boolVal, history]);
+
+  const onSubmit = async (event) => {
     event.preventDefault();
 
     setFormData({ ...formData, errMsg: '' });
 
-    const { fname, lname, gender, city, phone, email, bloodgroup, organ } =
-      formData;
+    const {
+      fname,
+      lname,
+      gender,
+      city,
+      phone,
+      email,
+      bloodgroup,
+      organ,
+      donorPublicKey,
+    } = formData;
     const donor = {
       fname,
       lname,
@@ -44,13 +114,37 @@ const DonorSignUp = () => {
       organ,
     };
 
-    axios
-      .post('/api/donors', donor)
-      .then((res) => {
-        console.log('Donor Added Successfully');
-        window.location = '/hospital-list/' + city;
-      })
-      .catch((err) => setFormData({ ...formData, errMsg: err.message }));
+    const infoStr = JSON.stringify(donor);
+    console.log(blockchainData.OrganInstance);
+    await ipfs.add(infoStr).then(async (hash) => {
+      try {
+        await blockchainData.OrganInstance.methods
+          .addDonor(blockchainData.account, hash, hash, organ, bloodgroup)
+          .call();
+        swal({
+          title: 'Success',
+          text: 'Donor Registered Successfully',
+          icon: 'success',
+          button: 'ok',
+        });
+      } catch (err) {
+        console.log(err);
+        // swal({
+        //   title: 'Error',
+        //   text: 'Some Error Occured',
+        //   icon: 'error',
+        //   button: 'ok',
+        // });
+      }
+    });
+
+    // axios
+    //   .post('/api/donors', donor)
+    //   .then((res) => {
+    //     console.log('Donor Added Successfully');
+    //     window.location = '/hospital-list/' + city;
+    //   })
+    //   .catch((err) => setFormData({ ...formData, errMsg: err.message }));
   };
 
   const onChange = (e) => {
@@ -166,6 +260,14 @@ const DonorSignUp = () => {
                   <option value='Pancreas'>Pancreas</option>
                 </Form.Field>
               </Form.Group>
+              {/**<Form.Input
+                value={formData.donorPublicKey}
+                onChange={onChange}
+                name='donorPublicKey'
+                label='Donor Id'
+                placeholder='Donor Id'
+                required
+              /> */}
               <Message error header='Oops!' content={formData.errMsg} />
               <Segment basic textAlign={'center'}>
                 <Button positive type='submit'>
