@@ -20,6 +20,7 @@ import CovidPage from './components/covidData/CovidPage';
 import OrganLanding from './components/organDonation/OrganLanding';
 import DonorSignUp from './components/organDonation/donor-signup';
 import DonorLogin from './components/organDonation/donor-login';
+import DonorProfile from './components/organDonation/donor-profile';
 import HospitalLogin from './components/organDonation/hospital-login';
 
 ReactDOM.render(
@@ -40,6 +41,7 @@ ReactDOM.render(
       <Route exact path='/organ-donation' component={OrganLanding} />
       <Route exact path='/organ-donation/donor-signup' component={DonorSignUp} />
       <Route exact path='/organ-donation/donor-login' component={DonorLogin} />
+      <Route exact path='/organ-donation/donor-profile' component={DonorProfile} />
       <Route exact path='/organ-donation/hospital-login' component={HospitalLogin} />
     </Switch>
   </Router>,

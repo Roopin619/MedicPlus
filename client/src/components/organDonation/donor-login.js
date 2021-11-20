@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import OrganContract from '../../contracts/OrganChain.json';
 import getWeb3 from '../../getWeb3';
-import ipfs from '../../ipfs';
 import swal from 'sweetalert';
 import {
   Grid,
@@ -84,23 +83,13 @@ const DonorLogin = () => {
 
     setLoginState({ loading: true, errMsg: '' });
 
-    let donorProfileObj = {};
-
     const { publicKey } = loginState;
     await blockchainData.OrganInstance.methods
       .getDonor(publicKey)
       .call()
       .then((value) => {
-        ipfs.cat(value[0]).then((data) => {
-          const val = JSON.parse(data);
-          donorProfileObj = { ...donorProfileObj, donorInfo: val, matchFound: value[3], recipientId: value[4] };
-          console.log(donorProfileObj)
-        })
         setLoginState({ ...loginState, loading: false });
-        history.push({
-          pathname: '/abc',
-          state: donorProfileObj
-        });
+        history.push('/organ-donation/donor-profile');
       })
       .catch((err) => {
         setLoginState({
