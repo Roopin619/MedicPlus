@@ -5,15 +5,9 @@ import { NavLink } from 'react-router-dom';
 const Nav = (props) => <NavLink exact {...props} activeClassName='active' />;
 
 const OrganHeader = () => {
-  // state = { activeItem: '' };
-  // const [activeItem, setActiveItem] = useState('');
-
-  // const handleItemClick = (e, { name }) => setActiveItem(name);
-
   const logout = (event) => {
     window.localStorage.removeItem('isAuthenticated');
     window.localStorage.removeItem('token');
-    // setActiveItem('home');
   };
 
   return (
@@ -47,22 +41,22 @@ const OrganHeader = () => {
             <Menu.Item as={Nav} to='/Organ-donation/' name='home' />
             <Menu.Item
               as={Nav}
-              to='/hospital/approve-donor'
+              to='/organ-donation/approve-donor'
               name='Approve Donor'
             />
             <Menu.Item
               as={Nav}
-              to='/hospital/register-recipient'
+              to='/organ-donation/register-recipient'
               name='Register Recipient'
             />
             <Menu.Item
               as={Nav}
-              to='/hospital/transplant-match'
+              to='/organ-donation/transplant-match'
               name='Transplant Match'
             />
             <Menu.Item
               as={Nav}
-              to='/hospital/patient-record'
+              to='/organ-donation/patient-record'
               name='Patient Record'
             />
             <Menu.Item as={Nav} to='/' name='Logout' onClick={logout} />

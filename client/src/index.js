@@ -9,7 +9,7 @@ import FindDoctor from './components/doctor/FindDoctor';
 import AddPatient from './components/admin/AddPatient';
 import FindPatient from './components/patient/FindPatient';
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import history from './history';
 import ViewDoctorInfo from './components/doctor/ViewDoctorInfo';
 import AddMedicalRecord from './components/doctor/AddMedicalRecord';
@@ -18,10 +18,15 @@ import EditPatientInfo from './components/patient/EditPatientInfo';
 import EditDoctorInfo from './components/doctor/EditDoctorInfo';
 import CovidPage from './components/covidData/CovidPage';
 import OrganLanding from './components/organDonation/OrganLanding';
-import DonorSignUp from './components/organDonation/donor-signup';
-import DonorLogin from './components/organDonation/donor-login';
-import DonorProfile from './components/organDonation/donor-profile';
-import HospitalLogin from './components/organDonation/hospital-login';
+import DonorSignUp from './components/organDonation/DonorSignUp';
+import DonorLogin from './components/organDonation/DonorLogin';
+import DonorProfile from './components/organDonation/DonorProfile';
+import HospitalLogin from './components/organDonation/HospitalLogin';
+import HospitalList from './components/organDonation/HospitalList';
+import ApproveDonor from './components/organDonation/ApproveDonor';
+import PatientRecord from './components/organDonation/PatientRecord';
+import RegisterRecipient from './components/organDonation/RegisterRecipient';
+import TransplantMatch from './components/organDonation/TransplantMatch';
 
 ReactDOM.render(
   <Router history={history}>
@@ -43,6 +48,21 @@ ReactDOM.render(
       <Route exact path='/organ-donation/donor-login' component={DonorLogin} />
       <Route exact path='/organ-donation/donor-profile' component={DonorProfile} />
       <Route exact path='/organ-donation/hospital-login' component={HospitalLogin} />
+      <Route exact path='/organ-donation/hospital-list/:city' component={HospitalList} />
+      <Route exact path='/organ-donation/approve-donor' component={ApproveDonor} />
+      <Route exact path="/organ-donation/register-recipient" component={RegisterRecipient} />
+      {window.localStorage.getItem("isAuthenticated") ?
+        <Route exact path="/organ-donation/approve-donor" component={ApproveDonor} />
+        : <Redirect to="/organ-donation/hospital-login" />
+      }
+      {window.localStorage.getItem("isAuthenticated") ?
+        <Route exact path="/organ-donation/patient-record" component={PatientRecord} />
+        : <Redirect to="/organ-donation/hospital-login" />
+      }
+      {window.localStorage.getItem("isAuthenticated") ?
+        <Route exact path="/organ-donation/transplant-match" render={() => <TransplantMatch />} />
+        : <Redirect to="/organ-donation/hospital-login" />
+      }
     </Switch>
   </Router>,
   document.getElementById('root')

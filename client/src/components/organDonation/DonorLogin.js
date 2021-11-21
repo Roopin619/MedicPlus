@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import OrganContract from '../../contracts/OrganChain.json';
 import getWeb3 from '../../getWeb3';
-import swal from 'sweetalert';
 import {
   Grid,
   Segment,
@@ -84,20 +83,29 @@ const DonorLogin = () => {
     setLoginState({ loading: true, errMsg: '' });
 
     const { publicKey } = loginState;
-    await blockchainData.OrganInstance.methods
-      .getDonor(publicKey)
-      .call()
-      .then((value) => {
-        setLoginState({ ...loginState, loading: false });
-        history.push('/organ-donation/donor-profile');
-      })
-      .catch((err) => {
-        setLoginState({
-          ...loginState,
-          loading: false,
-          errMsg: 'You are not approved yet OR you are not registred!',
+
+    if (publicKey === blockchainData.account) {
+      await blockchainData.OrganInstance.methods
+        .getDonor(publicKey)
+        .call()
+        .then((value) => {
+          setLoginState({ ...loginState, loading: false });
+          history.push('/organ-donation/donor-profile');
+        })
+        .catch((err) => {
+          setLoginState({
+            ...loginState,
+            loading: false,
+            errMsg: 'You are not approved yet OR you are not registred!',
+          });
         });
+    } else {
+      setLoginState({
+        ...loginState,
+        loading: false,
+        errMsg: 'Donor Id provided is not connected with blockchain.',
       });
+    }
   };
 
   const onChange = (e) => {

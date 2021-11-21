@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
 import { Card, Header, Divider, Image, Dimmer, Loader } from 'semantic-ui-react';
 import OrganContract from '../../contracts/OrganChain.json';
 import getWeb3 from '../../getWeb3';
@@ -20,7 +19,6 @@ const initialBlockchainData = {
 };
 
 const DonorProfile = () => {
-    const location = useLocation();
     const [profileState, setProfileState] = useState(initialState);
     const [boolVal, setBoolVal] = useState(false);
     const [blockchainData, setBlockchainData] = useState(initialBlockchainData);
@@ -60,7 +58,7 @@ const DonorProfile = () => {
                 await instance.methods
                     .getDonor(accounts[0])
                     .call()
-                    .then((value) => {
+                    .then(async (value) => {
                         ipfs.cat(value[0]).then((data) => {
                             const val = JSON.parse(data);
                             val.donorId = blockchainData.account;
@@ -69,6 +67,8 @@ const DonorProfile = () => {
                         if (value[4] !== "0x0000000000000000000000000000000000000000") {
                             setProfileState({ ...profileState, matchFound: true });
                             const recipient = instance.methods.getRecipient(value[4]).call();
+                            const res = await ipfs.cat(recipient[1]);
+                            console.log(res);
                         }
                     })
                     .catch((err) => {
