@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Form, Segment, Header, Button, Divider, Message } from 'semantic-ui-react';
+import {
+  Grid,
+  Form,
+  Segment,
+  Header,
+  Button,
+  Divider,
+  Message,
+} from 'semantic-ui-react';
 import axios from 'axios';
 import { SERVER_URL } from './url';
 import ipfs from '../../ipfs';
 import OrganContract from '../../contracts/OrganChain.json';
 import getWeb3 from '../../getWeb3';
+import OrganHeader from './OrganHeader';
 
 const initialData = {
   fname: '',
@@ -16,8 +25,8 @@ const initialData = {
   EMRHash: '',
   loading: false,
   errMsg: '',
-  successMsg: ''
-}
+  successMsg: '',
+};
 
 const initialBlockchainData = {
   OrganInstance: undefined,
@@ -51,7 +60,7 @@ const ApproveDonor = () => {
           OrganContract.abi,
           deployedNetwork && deployedNetwork.address
         );
-
+        // console.log(deployedNetwork.address);
         // Set web3, accounts, and contract to the state, and then proceed with an
         // example of interacting with the contract's methods.
 
@@ -76,18 +85,18 @@ const ApproveDonor = () => {
     }
   }, [blockchainData, boolVal]);
 
-  const onChange = event => {
+  const onChange = (event) => {
     setDonorData({ ...donorData, [event.target.name]: event.target.value });
-  }
+  };
 
-  const captureFile = event => {
+  const captureFile = (event) => {
     const file = event.target.files[0];
     const reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
     reader.onloadend = () => {
       setDonorData({ ...donorData, buffer: Buffer(reader.result) });
-    }
-  }
+    };
+  };
 
   const onApprove = (event) => {
     event.preventDefault();
@@ -96,96 +105,122 @@ const ApproveDonor = () => {
 
     const { fname, lname, email, buffer, donorId } = donorData;
 
-    axios.get(`${SERVER_URL}/api/donors/${email}`)
+    axios
+      .get(`${SERVER_URL}/api/donors/${email}`)
       .then(async (res) => {
-
         setDonorData({ loading: true });
-
+        // console.log(res.data);
         const { gender, city, phone, email, organ, bloodgroup } = res.data;
 
-        const data = JSON.stringify({ fname, lname, gender, city, phone, email });
+        const data = JSON.stringify({
+          fname,
+          lname,
+          gender,
+          city,
+          phone,
+          email,
+        });
 
-        const buf = Buffer.from(data);
+        // const buf = Buffer.from(data);
 
-        const result = await ipfs.files.add(buf);
-        setDonorData({ ...donorData, ipfsHash: result[0].hash });
+        const result = await ipfs.add(data);
+        setDonorData({ ...donorData, ipfsHash: result });
 
-        const result1 = await ipfs.files.add(buffer);
-        setDonorData({ ...donorData, EMRHash: result1[0].hash });
+        const result1 = await ipfs.add(buffer);
+        setDonorData({ ...donorData, EMRHash: result1 });
 
         try {
-          await blockchainData.OrganInstance.methods.addDonor(donorId, donorData.ipfsHash, donorData.EMRHash, organ, bloodgroup).send({
-            from: blockchainData.account,
-          });
-          setDonorData({ ...donorData, successMsg: "Donor Approved !" })
-        }
-        catch (err) {
-          setDonorData({ ...donorData, errMsg: err.message })
+          // console.log('hello');
+          await blockchainData.OrganInstance.methods
+            .addDonor(
+              donorId,
+              donorData.ipfsHash,
+              donorData.EMRHash,
+              organ,
+              bloodgroup
+            )
+            .send({
+              from: blockchainData.account,
+            });
+          setDonorData({ ...donorData, successMsg: 'Donor Approved !' });
+          // console.log('hello');
+        } catch (err) {
+          setDonorData({ ...donorData, errMsg: err.message });
+          console.log(err);
         }
         setDonorData({ ...donorData, loading: false });
       })
-      .catch(err => setDonorData({ ...donorData, errMsg: err.message }));
-  }
+      .catch((err) => setDonorData({ ...donorData, errMsg: err.message }));
+  };
 
   return (
-    <Grid centered columns={2} style={{ marginTop: '20px' }}>
-      <Grid.Column width={6}>
-        <Segment>
-          <Header as="h3" color="grey" style={{ textAlign: "center" }}>
-            Approve Donor
-          </Header>
-          <Divider />
-          <Form onSubmit={onApprove} error={!!donorData.errMsg} success={!!donorData.successMsg}>
-            <Form.Input
-              value={donorData.fname}
-              onChange={onChange}
-              name="fname"
-              label='First Name'
-              placeholder='First Name'
-              required
-            />
-            <Form.Input
-              value={donorData.lname}
-              onChange={onChange}
-              name="lname"
-              label='Last Name'
-              placeholder='Last Name'
-              required
-            />
-            <Form.Input
-              value={donorData.email}
-              onChange={onChange}
-              name="email"
-              label='Email'
-              placeholder='Email'
-              type="email"
-              required
-            />
-            <Form.Input
-              value={donorData.donorId}
-              onChange={onChange}
-              name="donorId"
-              label='Donor Public Key'
-              placeholder='Donor Public Key'
-              required
-            />
-            <Form.Input
-              onChange={captureFile}
-              name="EMR"
-              label="EMR"
-              type="file"
-              required
-            />
-            <Message error header="Oops!" content={donorData.errMsg} />
-            <Message success header="Sucess" content={donorData.successMsg} />
-            <Segment basic textAlign={"center"}>
-              <Button loading={donorData.loading} positive type='submit'>Approve</Button>
-            </Segment>
-          </Form>
-        </Segment>
-      </Grid.Column>
-    </Grid>
-  )
-}
+    <div>
+      <OrganHeader />
+      <Grid centered columns={2} style={{ marginTop: '20px' }}>
+        <Grid.Column width={6}>
+          <Segment>
+            <Header as='h3' color='grey' style={{ textAlign: 'center' }}>
+              Approve Donor
+            </Header>
+            <Divider />
+            <Form
+              onSubmit={onApprove}
+              error={!!donorData.errMsg}
+              success={!!donorData.successMsg}
+            >
+              <Form.Input
+                value={donorData.fname}
+                onChange={onChange}
+                name='fname'
+                label='First Name'
+                placeholder='First Name'
+                required
+              />
+              <Form.Input
+                value={donorData.lname}
+                onChange={onChange}
+                name='lname'
+                label='Last Name'
+                placeholder='Last Name'
+                required
+              />
+              <Form.Input
+                value={donorData.email}
+                onChange={onChange}
+                name='email'
+                label='Email'
+                placeholder='Email'
+                type='email'
+                required
+              />
+              <Form.Input
+                value={donorData.donorId}
+                onChange={onChange}
+                name='donorId'
+                label='Donor Public Key'
+                placeholder='Donor Public Key'
+                required
+              />
+              <Form.Input
+                onChange={captureFile}
+                name='EMR'
+                label='EMR'
+                type='file'
+                required
+              />
+              <Message error header='Oops!' content={donorData.errMsg} />
+              <Message success header='Sucess' content={donorData.successMsg} />
+              <Segment basic textAlign={'center'}>
+                <Button loading={donorData.loading} positive type='submit'>
+                  Approve
+                </Button>
+              </Segment>
+            </Form>
+          </Segment>
+        </Grid.Column>
+      </Grid>
+    </div>
+  );
+};
 
 export default ApproveDonor;
