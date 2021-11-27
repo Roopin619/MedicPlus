@@ -82,12 +82,11 @@ const PatientRecord = () => {
         throw Object.assign(
           new Error("Patient Doesn't Exists!")
         );
-      setRecord({ ...record, ipfsHash });
+      setRecord({ ...record, ipfsHash, loading: false });
     }
     catch (err) {
-      setRecord({ ...record, errMsg: err.message })
+      setRecord({ ...record, errMsg: err.message, loading: false })
     }
-    setRecord({ ...record, loading: false });
   }
 
   return (

@@ -13,6 +13,7 @@ import getWeb3 from '../../getWeb3';
 import ipfs from '../../ipfs';
 import jwtDecode from 'jwt-decode';
 import OrganHeader from './OrganHeader';
+import swal from 'sweetalert';
 
 const initialState = {
   fname: '',
@@ -115,13 +116,11 @@ const RegisterRecipient = () => {
     try {
       const data = JSON.stringify({ fname, lname, gender, city, phone, email });
 
-      const buf = Buffer.from(data);
+      var result = await ipfs.add(data);
+      setRecipientData({ ...recipientData, ipfsHash: result });
 
-      var result = await ipfs.files.add(buf);
-      setRecipientData({ ...recipientData, ipfsHash: result[0].hash });
-
-      result = await ipfs.files.add(buffer);
-      setRecipientData({ ...recipientData, EMRHash: result[0].hash });
+      var result1 = await ipfs.add(buffer);
+      setRecipientData({ ...recipientData, EMRHash: result1 });
 
       const hospital = await jwtDecode(window.localStorage.getItem('token'));
 
@@ -129,20 +128,27 @@ const RegisterRecipient = () => {
         .addRecipient(
           publicKey,
           hospital.hospital.hospitalpublickey,
-          recipientData.ipfsHash,
-          recipientData.EMRHash,
+          result,
+          result1,
           organ,
           bloodgroup
         )
         .send({
           from: blockchainData.account,
         });
-      setRecipientData({
-        ...recipientData,
-        successMsg: 'Repient Registered Successfully!',
-      });
+      swal({
+        title: 'Success',
+        text: 'Recipient Registered Successfully!',
+        icon: 'success',
+        button: 'ok',
+      }).then(() => setRecipientData(initialState));
     } catch (err) {
-      setRecipientData({ ...recipientData, errMsg: err.message });
+      swal({
+        title: 'Error',
+        text: 'Something went wrong!',
+        icon: 'error',
+        button: 'ok',
+      }).then(() => window.location.reload());
     }
     setRecipientData({ ...recipientData, loading: false });
   };
@@ -271,7 +277,7 @@ const RegisterRecipient = () => {
                   <option value='Heart'>Heart</option>
                   <option value='Kidney'>Kidney</option>
                   <option value='Liver'>Liver</option>
-                  <option value='Longs'>Lungs</option>
+                  <option value='Lungs'>Lungs</option>
                   <option value='Pancreas'>Pancreas</option>
                 </Form.Field>
               </Form.Group>

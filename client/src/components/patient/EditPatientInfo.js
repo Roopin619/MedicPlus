@@ -79,8 +79,8 @@ const EditPatientInfo = () => {
             });
         } else {
           swal({
-            title: 'Access Deneid',
-            text: 'Only Patient have acess to this page',
+            title: 'Access Denied',
+            text: 'Only Patient have access to this page',
             icon: 'error',
             button: {
               text: 'go back',

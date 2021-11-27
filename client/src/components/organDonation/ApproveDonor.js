@@ -14,6 +14,7 @@ import ipfs from '../../ipfs';
 import OrganContract from '../../contracts/OrganChain.json';
 import getWeb3 from '../../getWeb3';
 import OrganHeader from './OrganHeader';
+import swal from 'sweetalert';
 
 const initialData = {
   fname: '',
@@ -134,15 +135,22 @@ const ApproveDonor = () => {
           await blockchainData.OrganInstance.methods
             .addDonor(
               donorId,
-              donorData.ipfsHash,
-              donorData.EMRHash,
+              result,
+              result1,
               organ,
               bloodgroup
             )
             .send({
               from: blockchainData.account,
             });
-          setDonorData({ ...donorData, successMsg: 'Donor Approved !' });
+          // setDonorData({ ...donorData, successMsg: 'Donor Approved !' });
+          swal({
+            title: 'Success',
+            text: 'Donor Approved Successfully',
+            icon: 'success',
+            button: 'ok',
+          }).then(() => setDonorData(initialData));
+
           // console.log('hello');
         } catch (err) {
           setDonorData({ ...donorData, errMsg: err.message });

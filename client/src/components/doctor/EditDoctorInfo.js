@@ -80,8 +80,8 @@ const EditDoctorInfo = () => {
             });
         } else {
           swal({
-            title: 'Access Deneid',
-            text: 'Only Doctor have acess to this page',
+            title: 'Access Denied',
+            text: 'Only Doctor have access to this page',
             icon: 'error',
             button: {
               text: 'go back',

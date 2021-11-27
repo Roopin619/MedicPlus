@@ -65,6 +65,10 @@ const DonorProfile = () => {
           account: accounts[0],
         });
 
+        let donorObj = {};
+        let recipientObj = {};
+        let hospitalObj = {};
+
         await instance.methods
           .getDonor(accounts[0])
           .call()
@@ -72,17 +76,17 @@ const DonorProfile = () => {
             ipfs.cat(value[0]).then((data) => {
               const val = JSON.parse(data);
               val.donorId = blockchainData.account;
-              setProfileState({
-                ...profileState,
+              val.organ = value[1];
+              val.bloodgroup = value[2];
+              donorObj = {
                 donor: val,
                 matchFound: value[3],
                 recipientId: value[4],
-                loading: false,
-              });
+              };
             });
+
             if (value[4] !== '0x0000000000000000000000000000000000000000') {
-              setProfileState({ ...profileState, matchFound: true });
-              const recipient = instance.methods.getRecipient(value[4]).call();
+              const recipient = await instance.methods.getRecipient(value[4]).call();
               const res = await ipfs.cat(recipient[1]);
               let temp = JSON.parse(res.toString());
               let data = JSON.stringify({
@@ -90,31 +94,37 @@ const DonorProfile = () => {
                 lname: temp['lname'],
                 gender: temp['gender'],
                 city: temp['city'],
-                contact: temp['phone'],
+                phone: temp['phone'],
                 email: temp['email'],
                 recipient: value[4],
                 organ: recipient[2],
                 bloodgroup: recipient[3],
               });
-              setProfileState({ ...profileState, recipient: JSON.parse(data) });
-              axios
-                .get(`${SERVER_URL}/api/hospitals/profile/${recipient[0]}`)
-                .then((res) => {
-                  setProfileState({ ...profileState, hospital: res.data });
-                  // this.setState({hospital : res.data});
-                })
-                .catch((err) => console.log('Error => ' + err));
+              recipientObj = {
+                recipient: JSON.parse(data),
+                matchFound: true
+              }
+
+              try {
+                const res = await axios.get(`${SERVER_URL}/api/hospitals/profile/${recipient[0]}`);
+                hospitalObj = { hospital: res.data };
+              } catch (err) {
+                console.log('Error => ' + err)
+              }
             }
           })
           .catch((err) => {
             console.log('Something went wrong', err);
             setProfileState({ ...profileState, loading: false });
           });
+
+        setProfileState({ ...profileState, ...donorObj, ...recipientObj, ...hospitalObj, loading: false });
       } catch (error) {
         // Catch any errors for any of the above operations.
         alert(
           `Failed to load web3, accounts, or contract. Check console for details.`
         );
+        setProfileState({ ...profileState, loading: false });
         console.error(error);
       }
     };
@@ -201,7 +211,7 @@ const DonorProfile = () => {
                     <br />
                     <strong>City : </strong> {profileState.hospital.city} <br />
                     <br />
-                    <strong>Contact : </strong> {profileState.hospital.phone}{' '}
+                    <strong>Contact : </strong> {profileState.hospital.contact}{' '}
                     <br />
                     <br />
                   </Card.Description>

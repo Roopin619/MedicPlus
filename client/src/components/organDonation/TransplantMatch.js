@@ -73,16 +73,14 @@ const TransplantMatch = () => {
           const element = JSON.parse(data);
           recipient_arr.push(element);
         }
-        setRecipientsData({ ...recipientsData, recipient_arr });
+        setRecipientsData({ ...recipientsData, recipient_arr, loading: false });
 
       } catch (error) {
         // Catch any errors for any of the above operations.
-        alert(
-          `Failed to load web3, accounts, or contract. Check console for details.`
-        );
+        alert('Failed to load web3, accounts, or contract. Check console for details.');
         console.error(error);
+        setRecipientsData({ ...recipientsData, loading: false });
       }
-      setRecipientsData({ ...recipientsData, loading: false });
     };
 
     if (!boolVal) {
@@ -95,7 +93,7 @@ const TransplantMatch = () => {
     const List = recipientsData.recipient_arr.map((recipient) => {
       return (
         <div key={recipient.recipientId}>
-          <RenderList recipient={recipient} />
+          <RenderList recipient={recipient} blockchainData={blockchainData} />
           <Divider />
         </div>
       );

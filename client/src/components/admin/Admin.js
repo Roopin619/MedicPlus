@@ -54,8 +54,8 @@ const Admin = () => {
           });
         } else {
           swal({
-            title: 'Access Deneid',
-            text: 'Only Admin have acess to this page',
+            title: 'Access Denied',
+            text: 'Only Admin have access to this page',
             icon: 'error',
             button: {
               text: 'go back',

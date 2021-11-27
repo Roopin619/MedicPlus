@@ -19,62 +19,63 @@ const initialState = {
   open: false
 };
 
-const initialBlockchainData = {
-  OrganInstance: undefined,
-  account: null,
-  web3: null,
-};
+// const initialBlockchainData = {
+//   OrganInstance: undefined,
+//   account: null,
+//   web3: null,
+// };
 
 const RenderList = (props) => {
+  const { blockchainData } = props;
   const [donorData, setDonorData] = useState(initialState);
-  const [boolVal, setBoolVal] = useState(false);
-  const [blockchainData, setBlockchainData] = useState(initialBlockchainData);
+  // const [boolVal, setBoolVal] = useState(false);
+  // const [blockchainData, setBlockchainData] = useState(initialBlockchainData);
 
-  useEffect(() => {
-    // FOR REFRESHING PAGE ONLY ONCE -
-    if (!window.location.hash) {
-      window.location = window.location + '#loaded';
-      window.location.reload();
-    }
-    const loadBlockchain = async () => {
-      try {
-        // Get network provider and web3 instance.
-        const web3 = await getWeb3();
+  // useEffect(() => {
+  //   // FOR REFRESHING PAGE ONLY ONCE -
+  //   if (!window.location.hash) {
+  //     window.location = window.location + '#loaded';
+  //     window.location.reload();
+  //   }
+  //   const loadBlockchain = async () => {
+  //     try {
+  //       // Get network provider and web3 instance.
+  //       const web3 = await getWeb3();
 
-        // Use web3 to get the user's accounts.
-        const accounts = await web3.eth.getAccounts();
+  //       // Use web3 to get the user's accounts.
+  //       const accounts = await web3.eth.getAccounts();
 
-        // Get the contract instance.
-        const networkId = await web3.eth.net.getId();
-        const deployedNetwork = OrganContract.networks[networkId];
-        const instance = new web3.eth.Contract(
-          OrganContract.abi,
-          deployedNetwork && deployedNetwork.address
-        );
+  //       // Get the contract instance.
+  //       const networkId = await web3.eth.net.getId();
+  //       const deployedNetwork = OrganContract.networks[networkId];
+  //       const instance = new web3.eth.Contract(
+  //         OrganContract.abi,
+  //         deployedNetwork && deployedNetwork.address
+  //       );
 
-        // Set web3, accounts, and contract to the state, and then proceed with an
-        // example of interacting with the contract's methods.
+  //       // Set web3, accounts, and contract to the state, and then proceed with an
+  //       // example of interacting with the contract's methods.
 
-        setBlockchainData({
-          ...blockchainData,
-          OrganInstance: instance,
-          web3: web3,
-          account: accounts[0],
-        });
-      } catch (error) {
-        // Catch any errors for any of the above operations.
-        alert(
-          `Failed to load web3, accounts, or contract. Check console for details.`
-        );
-        console.error(error);
-      }
-    };
+  //       setBlockchainData({
+  //         ...blockchainData,
+  //         OrganInstance: instance,
+  //         web3: web3,
+  //         account: accounts[0],
+  //       });
+  //     } catch (error) {
+  //       // Catch any errors for any of the above operations.
+  //       alert(
+  //         `Failed to load web3, accounts, or contract. Check console for details.`
+  //       );
+  //       console.error(error);
+  //     }
+  //   };
 
-    if (!boolVal) {
-      loadBlockchain();
-      setBoolVal(true);
-    }
-  }, [blockchainData, boolVal]);
+  //   if (!boolVal) {
+  //     loadBlockchain();
+  //     setBoolVal(true);
+  //   }
+  // }, [blockchainData, boolVal]);
 
   const onMatch = async () => {
     setDonorData({ ...donorData, loading: true, open: false });
@@ -85,7 +86,7 @@ const RenderList = (props) => {
       });
 
       const result = await blockchainData.OrganInstance.methods.isMatchFound(props.recipient.recipientId).call();
-      if (result === "false") {
+      if (result === false) {
         throw Object.assign(
           new Error("Match Not Found!")
         );

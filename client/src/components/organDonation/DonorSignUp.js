@@ -12,6 +12,7 @@ import {
 } from 'semantic-ui-react';
 import { useHistory } from 'react-router';
 import OrganHeader from './OrganHeader';
+import swal from 'sweetalert';
 
 const initialData = {
   fname: '',
@@ -50,9 +51,12 @@ const DonorSignUp = () => {
     axios
       .post(`${SERVER_URL}/api/donors`, donor)
       .then((res) => {
-        alert('Donor Added Successfully');
-        // window.location = '/hospital-list/' + city;
-        history.push(`/organ-donation/hospital-list/${city}`);
+        swal({
+          title: 'Success',
+          text: 'Donor Registerd Successfully',
+          icon: 'success',
+          button: 'ok',
+        }).then(() => history.push(`/organ-donation/hospital-list/${city}`));
       })
       .catch((err) => setFormData({ ...formData, errMsg: err.message }));
   };
@@ -165,7 +169,7 @@ const DonorSignUp = () => {
                   <option value='Heart'>Heart</option>
                   <option value='Kidney'>Kidney</option>
                   <option value='Liver'>Liver</option>
-                  <option value='Longs'>Lungs</option>
+                  <option value='Lungs'>Lungs</option>
                   <option value='Pancreas'>Pancreas</option>
                 </Form.Field>
               </Form.Group>
