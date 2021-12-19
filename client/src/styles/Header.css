@@ -19,7 +19,7 @@
 }
 
 .brandName {
-  font-size: 25px;
+  font-size: 30px;
   letter-spacing: 2px;
   color: #00a19d;
 }
@@ -55,6 +55,8 @@
 
 .dropdown-btn {
   padding: 20px 40px 20px 20px;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .dropdown-btn:hover {

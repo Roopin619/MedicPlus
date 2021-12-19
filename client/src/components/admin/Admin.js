@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import EHRContract from '../../contracts/EHR.json';
 import getWeb3 from '../../getWeb3';
 import swal from 'sweetalert';
+import doctorVector from '../../images/doctorVector.jpg';
 
 import '../../styles/Admin.css';
 
@@ -81,12 +82,10 @@ const Admin = () => {
   }, [blockchainData, boolVal, history]);
 
   return (
-    <div>
+    <div className='Admin-container'>
       <div className='admin-header'>
         <div className='dropdown'>
-          <div className='dropdown-btn' onClick={() => setIsActive(!isActive)}>
-            Admin
-          </div>
+          <div className={`dropdown-btn active`}>Admin</div>
           {isActive && (
             <div className='dropdown-content'>
               <div
@@ -113,6 +112,27 @@ const Admin = () => {
         <div className='dropdown-btn' onClick={() => history.push('/')}>
           Logout
         </div>
+      </div>
+      <div className='admin-contentDiv'>
+        <div className='admin-buttonDiv'>
+          <button
+            className='admin-addBtn doctorBtn'
+            onClick={() => history.push('/addDoctor')}
+          >
+            <span>+</span>
+            <span>Add Doctor</span>
+          </button>
+          <button
+            className='admin-addBtn patientBtn'
+            onClick={() => history.push('/addPatient')}
+          >
+            {' '}
+            <span>+</span> <span>Add Patient</span>{' '}
+          </button>
+        </div>
+        {/**<div className='admin-imgDiv'>
+          <img src={doctorVector} alt='hospital' className='admin-img' />
+        </div> */}
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import jwtDecode from 'jwt-decode';
 import { Grid, Divider, Dimmer, Loader } from 'semantic-ui-react';
 import OrganContract from '../../contracts/OrganChain.json';
+import OrganHeader from './OrganHeader';
 import getWeb3 from '../../getWeb3';
 import ipfs from '../../ipfs';
 import RenderList from './RenderList';
@@ -13,7 +14,10 @@ const initialBlockchainData = {
 };
 
 const TransplantMatch = () => {
-  const [recipientsData, setRecipientsData] = useState({ recipient_arr: [], loading: true });
+  const [recipientsData, setRecipientsData] = useState({
+    recipient_arr: [],
+    loading: true,
+  });
   const [boolVal, setBoolVal] = useState(false);
   const [blockchainData, setBlockchainData] = useState(initialBlockchainData);
 
@@ -49,35 +53,39 @@ const TransplantMatch = () => {
           account: accounts[0],
         });
 
-        const hospital = jwtDecode(window.localStorage.getItem("token"));
+        const hospital = jwtDecode(window.localStorage.getItem('token'));
         const hospitalId = hospital.hospital.hospitalpublickey;
-        const recipientCount = await instance.methods.getRecipientCount(hospitalId).call();
+        const recipientCount = await instance.methods
+          .getRecipientCount(hospitalId)
+          .call();
         var recipient_arr = [];
         for (let i = 0; i < recipientCount; i++) {
-          var recipient = await instance.methods.getRecipientDetail(hospitalId, i).call();
-          if (recipient[1] === "")
-            continue;
+          var recipient = await instance.methods
+            .getRecipientDetail(hospitalId, i)
+            .call();
+          if (recipient[1] === '') continue;
           const res = await ipfs.cat(recipient[1]);
           const temp = JSON.parse(res.toString());
           const data = JSON.stringify({
-            fname: temp["fname"],
-            lname: temp["lname"],
-            gender: temp["gender"],
-            city: temp["city"],
-            contact: temp["phone"],
-            email: temp["email"],
+            fname: temp['fname'],
+            lname: temp['lname'],
+            gender: temp['gender'],
+            city: temp['city'],
+            contact: temp['phone'],
+            email: temp['email'],
             recipientId: recipient[0],
             organ: recipient[2],
-            bloodgroup: recipient[3]
+            bloodgroup: recipient[3],
           });
           const element = JSON.parse(data);
           recipient_arr.push(element);
         }
         setRecipientsData({ ...recipientsData, recipient_arr, loading: false });
-
       } catch (error) {
         // Catch any errors for any of the above operations.
-        alert('Failed to load web3, accounts, or contract. Check console for details.');
+        alert(
+          'Failed to load web3, accounts, or contract. Check console for details.'
+        );
         console.error(error);
         setRecipientsData({ ...recipientsData, loading: false });
       }
@@ -99,24 +107,22 @@ const TransplantMatch = () => {
       );
     });
     return <div>{List}</div>;
-  }
+  };
 
   return (
     <div>
-      {
-        recipientsData.loading ?
-          <Dimmer active={recipientsData.loading} inverted >
-            <Loader size='massive'>Loading</Loader>
-          </Dimmer>
-          :
-          <Grid centered columns={2} style={{ marginTop: "10px" }}>
-            <Grid.Column width={11}>
-              {renderList()}
-            </Grid.Column>
-          </Grid>
-      }
+      <OrganHeader />
+      {recipientsData.loading ? (
+        <Dimmer active={recipientsData.loading} inverted>
+          <Loader size='massive'>Loading</Loader>
+        </Dimmer>
+      ) : (
+        <Grid centered columns={2} style={{ marginTop: '10px' }}>
+          <Grid.Column width={11}>{renderList()}</Grid.Column>
+        </Grid>
+      )}
     </div>
-  )
-}
+  );
+};
 
 export default TransplantMatch;

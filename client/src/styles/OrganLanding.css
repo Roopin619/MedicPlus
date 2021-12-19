@@ -1,0 +1,36 @@
+.organDonation-landing {
+  background: url('../images/donation_panel.jpg') no-repeat center fixed;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+.organDonation-background {
+  background: url('../images/donationForm_back.jpg') no-repeat center fixed;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+.organLanding-contentDiv {
+  width: 100%;
+  margin: 14rem auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .organLanding-imgDiv {
+  width: 60%;
+} */
+
+/* .organLanding-img {
+  width: 100%;
+  height: 90vh;
+} */
+
+.organLanding-buttonDiv {
+  width: 100%;
+  margin: auto;
+  /* padding-top: 2rem; */
+  text-align: center;
+}

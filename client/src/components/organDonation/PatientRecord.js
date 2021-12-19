@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Form, Segment, Header, Button, Icon, Divider, Message } from 'semantic-ui-react';
+import {
+  Grid,
+  Form,
+  Segment,
+  Header,
+  Button,
+  Icon,
+  Divider,
+  Message,
+} from 'semantic-ui-react';
+import OrganHeader from './OrganHeader';
 import OrganContract from '../../contracts/OrganChain.json';
 import getWeb3 from '../../getWeb3';
 
@@ -7,8 +17,8 @@ const initialState = {
   publicKey: '',
   ipfsHash: '',
   loading: false,
-  errMsg: ''
-}
+  errMsg: '',
+};
 
 const initialBlockchainData = {
   OrganInstance: undefined,
@@ -67,9 +77,9 @@ const PatientRecord = () => {
     }
   }, [blockchainData, boolVal]);
 
-  const onChange = event => {
+  const onChange = (event) => {
     setRecord({ ...record, [event.target.name]: event.target.value });
-  }
+  };
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -77,57 +87,59 @@ const PatientRecord = () => {
     setRecord({ ...record, loading: true, errMsg: '' });
 
     try {
-      const ipfsHash = await blockchainData.OrganInstance.methods.getEMR(record.publicKey).call();
-      if (!ipfsHash)
-        throw Object.assign(
-          new Error("Patient Doesn't Exists!")
-        );
+      const ipfsHash = await blockchainData.OrganInstance.methods
+        .getEMR(record.publicKey)
+        .call();
+      if (!ipfsHash) throw Object.assign(new Error("Patient Doesn't Exists!"));
       setRecord({ ...record, ipfsHash, loading: false });
+    } catch (err) {
+      setRecord({ ...record, errMsg: err.message, loading: false });
     }
-    catch (err) {
-      setRecord({ ...record, errMsg: err.message, loading: false })
-    }
-  }
+  };
 
   return (
-    <Grid centered columns={2} style={{ marginTop: '20px' }}>
-      <Grid.Column width={6}>
-        <Segment>
-          <Header as="h3" color="grey" style={{ textAlign: "center" }}>
-            Get Patient's EMR
-          </Header>
-          <Divider />
-          <Form onSubmit={onSubmit} error={!!record.errMsg}>
-            <Form.Input
-              value={record.publicKey}
-              onChange={onChange}
-              name="publicKey"
-              label='Public Key'
-              placeholder='Public Key'
-              required
-            />
-            <Message error header="Oops!" content={record.errMsg} />
-            <Segment basic textAlign={"center"}>
-              <Button loading={record.loading} positive type='submit'>Get EMR</Button>
+    <div>
+      <OrganHeader />
+      <Grid centered columns={2} style={{ marginTop: '20px' }}>
+        <Grid.Column width={6}>
+          <Segment>
+            <Header as='h3' color='grey' style={{ textAlign: 'center' }}>
+              Get Patient's EMR
+            </Header>
+            <Divider />
+            <Form onSubmit={onSubmit} error={!!record.errMsg}>
+              <Form.Input
+                value={record.publicKey}
+                onChange={onChange}
+                name='publicKey'
+                label='Public Key'
+                placeholder='Public Key'
+                required
+              />
+              <Message error header='Oops!' content={record.errMsg} />
+              <Segment basic textAlign={'center'}>
+                <Button loading={record.loading} positive type='submit'>
+                  Get EMR
+                </Button>
+              </Segment>
+            </Form>
+            <Segment basic textAlign={'center'}>
+              {record.ipfsHash ? (
+                <Button
+                  primary
+                  style={{ textAlign: 'center' }}
+                  href={`https://ipfs.io/ipfs/${record.ipfsHash}`}
+                  target='_blank'
+                >
+                  <Icon name='download' /> Download EMR
+                </Button>
+              ) : null}
             </Segment>
-          </Form>
-          <Segment basic textAlign={"center"}>
-            {record.ipfsHash ?
-              <Button
-                primary
-                style={{ textAlign: "center" }}
-                href={`https://ipfs.io/ipfs/${record.ipfsHash}`}
-                target="_blank"
-              >
-                <Icon name="download" /> Download EMR
-              </Button>
-              : null
-            }
           </Segment>
-        </Segment>
-      </Grid.Column>
-    </Grid>
-  )
-}
+        </Grid.Column>
+      </Grid>
+    </div>
+  );
+};
 
 export default PatientRecord;

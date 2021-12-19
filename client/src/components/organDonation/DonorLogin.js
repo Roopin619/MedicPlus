@@ -11,6 +11,7 @@ import {
   Divider,
   Message,
 } from 'semantic-ui-react';
+import '../../styles/OrganLanding.css';
 import OrganHeader from './OrganHeader';
 
 const initialState = {
@@ -114,34 +115,36 @@ const DonorLogin = () => {
   };
 
   return (
-    <div>
+    <div className='organDonation-background'>
       <OrganHeader />
-      <Grid centered columns={2} style={{ marginTop: '20px' }}>
-        <Grid.Column width={6}>
-          <Segment>
-            <Header as='h3' color='grey' style={{ textAlign: 'center' }}>
-              Donor Log In
-            </Header>
-            <Divider />
-            <Form onSubmit={onSubmit} error={!!loginState.errMsg}>
-              <Form.Input
-                value={loginState.publicKey}
-                onChange={onChange}
-                name='publicKey'
-                label='Public Key'
-                placeholder='Public Key'
-                required
-              />
-              <Message error header='Oops!' content={loginState.errMsg} />
-              <Segment basic textAlign={'center'}>
-                <Button loading={loginState.loading} positive type='submit'>
-                  Log In
-                </Button>
-              </Segment>
-            </Form>
-          </Segment>
-        </Grid.Column>
-      </Grid>
+      <div>
+        <Grid centered columns={2} style={{ marginTop: '20px' }}>
+          <Grid.Column width={6}>
+            <Segment>
+              <Header as='h3' color='grey' style={{ textAlign: 'center' }}>
+                Donor Log In
+              </Header>
+              <Divider />
+              <Form onSubmit={onSubmit} error={!!loginState.errMsg}>
+                <Form.Input
+                  value={loginState.publicKey}
+                  onChange={onChange}
+                  name='publicKey'
+                  label='Public Key'
+                  placeholder='Public Key'
+                  required
+                />
+                <Message error header='Oops!' content={loginState.errMsg} />
+                <Segment basic textAlign={'center'}>
+                  <Button loading={loginState.loading} positive type='submit'>
+                    Log In
+                  </Button>
+                </Segment>
+              </Form>
+            </Segment>
+          </Grid.Column>
+        </Grid>
+      </div>
     </div>
   );
 };

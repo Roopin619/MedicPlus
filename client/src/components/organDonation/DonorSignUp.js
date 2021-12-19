@@ -66,7 +66,7 @@ const DonorSignUp = () => {
   };
 
   return (
-    <div>
+    <div className='organDonation-background'>
       <OrganHeader />
       <Grid centered columns={2} style={{ marginTop: '20px' }}>
         <Grid.Column width={9}>
