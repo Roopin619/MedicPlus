@@ -75,7 +75,8 @@ const DonorProfile = () => {
           .then(async (value) => {
             ipfs.cat(value[0]).then((data) => {
               const val = JSON.parse(data);
-              val.donorId = blockchainData.account;
+
+              val.donorId = accounts[0];
               val.organ = value[1];
               val.bloodgroup = value[2];
               donorObj = {
@@ -83,10 +84,19 @@ const DonorProfile = () => {
                 matchFound: value[3],
                 recipientId: value[4],
               };
+              if (value[4] === '0x0000000000000000000000000000000000000000') {
+                return setProfileState({
+                  ...profileState,
+                  ...donorObj,
+                  loading: false,
+                });
+              }
             });
 
             if (value[4] !== '0x0000000000000000000000000000000000000000') {
-              const recipient = await instance.methods.getRecipient(value[4]).call();
+              const recipient = await instance.methods
+                .getRecipient(value[4])
+                .call();
               const res = await ipfs.cat(recipient[1]);
               let temp = JSON.parse(res.toString());
               let data = JSON.stringify({
@@ -102,14 +112,24 @@ const DonorProfile = () => {
               });
               recipientObj = {
                 recipient: JSON.parse(data),
-                matchFound: true
-              }
+                matchFound: true,
+              };
 
               try {
-                const res = await axios.get(`${SERVER_URL}/api/hospitals/profile/${recipient[0]}`);
+                const res = await axios.get(
+                  `${SERVER_URL}/api/hospitals/profile/${recipient[0]}`
+                );
                 hospitalObj = { hospital: res.data };
+                setProfileState({
+                  ...profileState,
+                  ...donorObj,
+                  ...recipientObj,
+                  ...hospitalObj,
+                  loading: false,
+                });
               } catch (err) {
-                console.log('Error => ' + err)
+                console.log('Error => ' + err);
+                setProfileState({ ...profileState, loading: false });
               }
             }
           })
@@ -117,8 +137,6 @@ const DonorProfile = () => {
             console.log('Something went wrong', err);
             setProfileState({ ...profileState, loading: false });
           });
-
-        setProfileState({ ...profileState, ...donorObj, ...recipientObj, ...hospitalObj, loading: false });
       } catch (error) {
         // Catch any errors for any of the above operations.
         alert(

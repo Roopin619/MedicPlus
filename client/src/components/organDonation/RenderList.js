@@ -8,7 +8,6 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import OrganContract from '../../contracts/OrganChain.json';
-import OrganHeader from './OrganHeader';
 import getWeb3 from '../../getWeb3';
 import ipfs from '../../ipfs';
 
@@ -24,7 +23,6 @@ const initialState = {
   city: '',
   donorFound: false,
   loading: false,
-  open: false,
 };
 
 // const initialBlockchainData = {
@@ -36,6 +34,8 @@ const initialState = {
 const RenderList = (props) => {
   const { blockchainData } = props;
   const [donorData, setDonorData] = useState(initialState);
+  const [open, setOpen] = useState(false);
+  const [donorFound, setDonorFound] = useState(false);
   // const [boolVal, setBoolVal] = useState(false);
   // const [blockchainData, setBlockchainData] = useState(initialBlockchainData);
 
@@ -86,7 +86,7 @@ const RenderList = (props) => {
   // }, [blockchainData, boolVal]);
 
   const onMatch = async () => {
-    setDonorData({ ...donorData, loading: true, open: false });
+    setDonorData({ ...donorData, loading: true });
 
     try {
       await blockchainData.OrganInstance.methods
@@ -99,6 +99,8 @@ const RenderList = (props) => {
         .isMatchFound(props.recipient.recipientId)
         .call();
       if (result === false) {
+        // alert('Match not found');
+        setOpen(true);
         throw Object.assign(new Error('Match Not Found!'));
       } else {
         const donorId = await blockchainData.OrganInstance.methods
@@ -107,17 +109,21 @@ const RenderList = (props) => {
         const donor = await blockchainData.OrganInstance.methods
           .getDonor(donorId)
           .call();
-        setDonorData({
+        // setDonorData({
+        //   ...donorData,
+        //   donorId: donorId,
+        //   organ: donor[1],
+        //   bloodgroup: donor[2],
+        // });
+
+        const res = await ipfs.cat(donor[0]);
+        const temp = JSON.parse(res.toString());
+        console.log(temp);
+        return setDonorData({
           ...donorData,
           donorId: donorId,
           organ: donor[1],
           bloodgroup: donor[2],
-        });
-
-        const res = await ipfs.cat(donor[0]);
-        const temp = JSON.parse(res.toString());
-        setDonorData({
-          ...donorData,
           fname: temp['fname'],
           lname: temp['lname'],
           gender: temp['gender'],
@@ -126,18 +132,21 @@ const RenderList = (props) => {
           city: temp['city'],
           donorFound: true,
         });
+        // setDonorFound(true);
+        // setOpen(true);
+        // setOpenMsg('Match Found!!');
       }
     } catch (err) {
-      setDonorData({ ...donorData, open: true });
+      console.log(err);
+      // setDonorData({ ...donorData, open: true });
     }
     setDonorData({ ...donorData, loading: false });
   };
 
-  const handleClose = () => setDonorData({ ...donorData, open: false });
-
+  const handleClose = () => setOpen(false);
+  console.log(donorData);
   return (
     <div>
-      <OrganHeader />
       <Card.Group centered>
         {!donorData.donorFound ? null : (
           <Card style={{ width: '375px' }}>
@@ -197,7 +206,7 @@ const RenderList = (props) => {
               <br />
             </Card.Description>
           </Card.Content>
-          <Portal onClose={handleClose} open={donorData.open}>
+          <Portal onClose={handleClose} open={open}>
             <Segment
               style={{
                 left: '40%',
